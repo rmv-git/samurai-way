@@ -7,6 +7,7 @@ import {DialogsPage} from "./components/dialogs/DialogsPage";
 import {Login} from "./components/login/Login";
 import {Users} from "./components/users/Users";
 import {FooterComponent} from "./components/footer/Footer";
+import {Route} from "react-router-dom";
 
 export const App = () => {
     return (
@@ -15,8 +16,12 @@ export const App = () => {
             <Navbar/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
-                <ProfilePage/>
-                <DialogsPage/>
+                <Route exact path={'/profile'}>
+                    <ProfilePage/>
+                </Route>
+                <Route exact path={'/messages'}>
+                    <DialogsPage/>
+                </Route>
                 <Login/>
                 <Users/>
             </div>
