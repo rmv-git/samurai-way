@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
-import {NavLink} from "react-router-dom";
+import {Dialog} from "./dialog/Dialog";
 
 export const DialogsPage = () => {
 
@@ -22,12 +22,7 @@ export const DialogsPage = () => {
         <div className={classes.container}>
             <div className={classes.dialogs}>
                 {
-                    arrayUsers.map((user: UserType) =>
-                        <div key={user.id}>
-                            <NavLink to={`/messages/${user.id}`} className={classes.link}>
-                                {user.name}
-                            </NavLink>
-                        </div>)
+                    arrayUsers.map((user: UserType) => <Dialog user={user} key={user.id}/>)
                 }
             </div>
             <div className={classes.messages}>

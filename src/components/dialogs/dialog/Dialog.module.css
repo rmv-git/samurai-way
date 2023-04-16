@@ -1,0 +1,9 @@
+.link {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+    color: white;
+}
+.link:visited {
+    color: gold;
+}
