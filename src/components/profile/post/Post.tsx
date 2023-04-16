@@ -8,7 +8,7 @@ type PropsType = {
 export const Post = (props: PropsType) => {
     return (
         <div>
-            {props.posts.map((post: PostType) => <div>
+            {props.posts.map((post: PostType) => <div key={post.id}>
                 <img src={robot} style={{width: '46px', height: '46px'}} alt={'robot_avatar_image'}/>
                 <span>{post.text}</span>
                 <div>likes: {post.likesCount}</div>

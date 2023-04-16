@@ -3,3 +3,13 @@ export type PostType = {
     text: string;
     likesCount: number;
 }
+
+export type UserType = {
+    id: number;
+    name: string;
+}
+
+export type MessageType = {
+    id: number;
+    text: string;
+}
