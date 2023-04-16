@@ -2,6 +2,7 @@ import React from 'react';
 import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
 import {Dialog} from "./dialog/Dialog";
+import { Message } from './message/Message';
 
 export const DialogsPage = () => {
 
@@ -27,8 +28,7 @@ export const DialogsPage = () => {
             </div>
             <div className={classes.messages}>
                 {
-                    arrayMessages.map((message: MessageType) =>
-                        <div key={message.id}>{message.text}</div>)
+                    arrayMessages.map((message: MessageType) => <Message message={message} key={message.id}/>)
                 }
             </div>
         </div>
