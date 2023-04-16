@@ -1,13 +1,18 @@
 import React from 'react';
+import {PostType} from '../../../types/types';
 import robot from './../../../assets/images/robot.png';
 
-export const Post = () => {
+type PropsType = {
+    posts: Array<PostType>;
+}
+export const Post = (props: PropsType) => {
     return (
         <div>
-            <div>
+            {props.posts.map((post: PostType) => <div>
                 <img src={robot} style={{width: '46px', height: '46px'}} alt={'robot_avatar_image'}/>
-                <span>post</span>
-            </div>
+                <span>{post.text}</span>
+                <div>likes: {post.likesCount}</div>
+            </div>)}
         </div>
     );
 };
