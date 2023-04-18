@@ -8,12 +8,10 @@ import {Login} from "./components/login/Login";
 import {Users} from "./components/users/Users";
 import {FooterComponent} from "./components/footer/Footer";
 import {Route} from "react-router-dom";
-import {MessageType, PostType, UserType} from "./types/types";
+import {StateType} from "./types/types";
 
 type PropsType = {
-    arrayMessages: Array<MessageType>;
-    arrayUsers: Array<UserType>;
-    arrayPosts: Array<PostType>;
+    state: StateType;
 }
 export const App = (props: PropsType) => {
     return (
@@ -23,11 +21,11 @@ export const App = (props: PropsType) => {
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
-                    <ProfilePage arrayPosts={props.arrayPosts}/>
+                    <ProfilePage arrayPosts={props.state.profilePage.arrayPosts}/>
                 </Route>
                 <Route exact path={'/messages'}>
-                    <DialogsPage arrayMessages={props.arrayMessages}
-                                 arrayUsers={props.arrayUsers}/>
+                    <DialogsPage arrayMessages={props.state.dialogsPage.arrayMessages}
+                                 arrayUsers={props.state.dialogsPage.arrayUsers}/>
                 </Route>
                 <Login/>
                 <Users/>
