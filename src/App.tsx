@@ -12,6 +12,7 @@ import {StateType} from "./types/types";
 
 type PropsType = {
     state: StateType;
+    addPost: (value: string) => void;
 }
 export const App = (props: PropsType) => {
     return (
@@ -21,7 +22,7 @@ export const App = (props: PropsType) => {
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
-                    <ProfilePage arrayPosts={props.state.profilePage.arrayPosts}/>
+                    <ProfilePage arrayPosts={props.state.profilePage.arrayPosts} addPost={props.addPost}/>
                 </Route>
                 <Route exact path={'/messages'}>
                     <DialogsPage arrayMessages={props.state.dialogsPage.arrayMessages}

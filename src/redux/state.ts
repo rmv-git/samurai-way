@@ -1,4 +1,5 @@
 import {StateType} from "../types/types";
+import {renderThree} from "../index";
 
 export let state: StateType = {
     profilePage: {
@@ -22,4 +23,9 @@ export let state: StateType = {
             {id: 4, text: 'sdfsdfdf'},
         ],
     },
+}
+
+export const addPost = (value: string) => {
+    state.profilePage.arrayPosts.push({id: 4, text: value, likesCount: 0});
+    renderThree(state);
 }
