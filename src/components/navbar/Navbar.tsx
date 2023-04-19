@@ -2,8 +2,13 @@ import React from "react";
 import "./Navbar.module.css";
 import classes from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
+import {Sidebar} from "../sidebar/Sidebar";
+import {UserType} from "../../types/types";
 
-export const Navbar = () => {
+type PropsType = {
+    arrayUsers: Array<UserType>;
+}
+export const Navbar = (props: PropsType) => {
     return (
         <div className={classes.nav}>
             <div className={classes.link}>
@@ -44,6 +49,8 @@ export const Navbar = () => {
                     Users
                 </NavLink>
             </div>
+            <Sidebar arrayUsers={props.arrayUsers}/>
         </div>
+
     );
 }

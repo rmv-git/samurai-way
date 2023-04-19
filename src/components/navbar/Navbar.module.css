@@ -1,7 +1,10 @@
 .nav {
+    display: grid;
     border: white solid 2px;
     grid-area: nav;
     padding: 20px;
+    grid-template-rows: 1fr;
+    grid-template-columns: 8fr;
 }
 
 .link a {

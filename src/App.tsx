@@ -19,7 +19,7 @@ export const App = (props: PropsType) => {
     return (
         <div className={"app-wrapper"}>
             <HeaderComponent/>
-            <Navbar/>
+            <Navbar arrayUsers={props.state.sidebar.arrayUsers}/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>

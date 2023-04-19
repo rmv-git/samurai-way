@@ -23,6 +23,13 @@ export let state: StateType = {
             {id: 4, text: 'sdfsdfdf'},
         ],
     },
+    sidebar: {
+        arrayUsers: [
+            {id: 1, name: 'Viktor'},
+            {id: 2, name: 'Dimych'},
+            {id: 4, name: 'Valera'},
+        ],
+    }
 }
 
 export const addPost = (value: string) => {

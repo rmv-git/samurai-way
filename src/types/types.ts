@@ -21,8 +21,11 @@ export type DialogsPageType = {
     arrayMessages: Array<MessageType>;
     arrayUsers: Array<UserType>;
 }
-
+export type SideBarType = {
+    arrayUsers: Array<UserType>;
+}
 export type StateType = {
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
+    sidebar: SideBarType;
 }
