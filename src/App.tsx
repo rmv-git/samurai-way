@@ -13,6 +13,7 @@ import {StateType} from "./types/types";
 type PropsType = {
     state: StateType;
     addPost: (value: string) => void;
+    sendMessage: (value: string) => void;
 }
 export const App = (props: PropsType) => {
     return (
@@ -26,7 +27,8 @@ export const App = (props: PropsType) => {
                 </Route>
                 <Route exact path={'/messages'}>
                     <DialogsPage arrayMessages={props.state.dialogsPage.arrayMessages}
-                                 arrayUsers={props.state.dialogsPage.arrayUsers}/>
+                                 arrayUsers={props.state.dialogsPage.arrayUsers}
+                                 sendMessage={props.sendMessage}/>
                 </Route>
                 <Login/>
                 <Users/>

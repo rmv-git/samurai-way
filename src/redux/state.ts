@@ -29,3 +29,7 @@ export const addPost = (value: string) => {
     state.profilePage.arrayPosts.push({id: 4, text: value, likesCount: 0});
     renderThree(state);
 }
+export const sendMessage = (value: string) => {
+    state.dialogsPage.arrayMessages.push({id: 5, text: value});
+    renderThree(state);
+}
