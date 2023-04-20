@@ -16,10 +16,12 @@ export type MessageType = {
 
 export type ProfilePageType = {
     arrayPosts: Array<PostType>;
+    newPostText: string;
 }
 export type DialogsPageType = {
     arrayMessages: Array<MessageType>;
     arrayUsers: Array<UserType>;
+    newMessageText: string;
 }
 export type SideBarType = {
     arrayUsers: Array<UserType>;
@@ -28,4 +30,15 @@ export type StateType = {
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
     sidebar: SideBarType;
+}
+
+export type StoreType = {
+    _state: StateType,
+    addPost: () => void,
+    updateNewPostText: (inputPostText: string) => void,
+    sendMessage: () => void,
+    updateNewMessageText: (inputMessageText: string) => void,
+    _renderThree: (_state: StateType) => void,
+    getState: () => StateType,
+    subscribe: (observer: () => void) => void,
 }

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
-import {addPost, sendMessage, state} from "./redux/state";
 import {StateType} from "./types/types";
+import {store} from "./redux/store";
 
 // ReactDOM.render(
 //     <BrowserRouter>
@@ -14,14 +14,34 @@ import {StateType} from "./types/types";
 //     document.getElementById('root')
 // );
 
+// export const renderThree = (state: StateType) => {
+//     ReactDOM.render(
+//         <React.StrictMode>
+//             <BrowserRouter>
+//                 <App state={state} addPost={addPost} sendMessage={sendMessage}/>
+//             </BrowserRouter>
+//         </React.StrictMode>,
+//         document.getElementById('root')
+//     );
+// }
+// renderThree(state);
+
 export const renderThree = (state: StateType) => {
     ReactDOM.render(
-        <React.StrictMode>
-            <BrowserRouter>
-                <App state={state} addPost={addPost} sendMessage={sendMessage}/>
-            </BrowserRouter>
-        </React.StrictMode>,
+        <BrowserRouter>
+            <App state={state}
+                 addPost={store.addPost.bind(store)}
+                 sendMessage={store.sendMessage.bind(store)}
+                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 updateNewMessageText={store.updateNewMessageText.bind(store)}
+            />
+        </BrowserRouter>,
         document.getElementById('root')
     );
 }
-renderThree(state);
+renderThree(store.getState());
+
+store.subscribe(() => {
+    let state = store.getState();
+    renderThree(state)
+});

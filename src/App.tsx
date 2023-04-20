@@ -14,6 +14,8 @@ type PropsType = {
     state: StateType;
     addPost: (value: string) => void;
     sendMessage: (value: string) => void;
+    updateNewPostText: (value: string) => void;
+    updateNewMessageText: (value: string) => void;
 }
 export const App = (props: PropsType) => {
     return (
@@ -23,12 +25,17 @@ export const App = (props: PropsType) => {
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
-                    <ProfilePage arrayPosts={props.state.profilePage.arrayPosts} addPost={props.addPost}/>
+                    <ProfilePage arrayPosts={props.state.profilePage.arrayPosts}
+                                 addPost={props.addPost}
+                                 updateNewPostText={props.updateNewPostText}
+                    />
                 </Route>
                 <Route exact path={'/messages'}>
                     <DialogsPage arrayMessages={props.state.dialogsPage.arrayMessages}
                                  arrayUsers={props.state.dialogsPage.arrayUsers}
-                                 sendMessage={props.sendMessage}/>
+                                 sendMessage={props.sendMessage}
+                                 updateNewMessageText={props.updateNewMessageText}
+                    />
                 </Route>
                 <Login/>
                 <Users/>

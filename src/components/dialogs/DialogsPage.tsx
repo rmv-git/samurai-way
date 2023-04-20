@@ -8,6 +8,7 @@ type PropsType = {
     arrayMessages: Array<MessageType>;
     arrayUsers: Array<UserType>;
     sendMessage: (value: string) => void;
+    updateNewMessageText: (value: string) => void;
 }
 
 export const DialogsPage = (props: PropsType) => {
