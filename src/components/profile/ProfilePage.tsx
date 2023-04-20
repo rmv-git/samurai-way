@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useState} from "react";
 import classes from "./ProfilePage.module.css";
-import {Post} from "./post/Post";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {PostType} from "../../types/types";
+import {Posts} from "./posts/Posts";
 
 type PropsType = {
     arrayPosts: Array<PostType>;
@@ -35,9 +35,7 @@ export const ProfilePage = (props: PropsType) => {
     return (
         <div className={classes.content}>
             <ProfileDescription/>
-            <div>
-                <Post posts={props.arrayPosts}/>
-            </div>
+            <Posts posts={props.arrayPosts}/>
             <div>
                 <textarea ref={textAreaPostText} onChange={onChangeHandler}/>
                 <button onClick={addPost}>Add</button>
