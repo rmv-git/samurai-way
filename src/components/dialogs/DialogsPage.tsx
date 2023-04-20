@@ -16,12 +16,20 @@ export const DialogsPage = (props: PropsType) => {
     const [value, setValue] = useState('');
 
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(event.currentTarget.value);
+        props.updateNewMessageText(event.currentTarget.value);
+        // setValue(event.currentTarget.value);
     }
     const sendMessage = () => {
-        props.sendMessage(value);
-        setValue('');
+        if (textAreaMessageText.current) {
+            props.sendMessage(textAreaMessageText.current.value);
+            textAreaMessageText.current.value = ''
+        }
+        // props.sendMessage(value);
+        // setValue('');
     }
+
+    let textAreaMessageText = React.createRef<HTMLTextAreaElement>();
+
 
     return (
         <div className={classes.container}>
@@ -36,7 +44,7 @@ export const DialogsPage = (props: PropsType) => {
                 }
             </div>
             <div>
-                <textarea value={value} onChange={onChangeHandler}/>
+                <textarea ref={textAreaMessageText} onChange={onChangeHandler}/>
                 <button onClick={sendMessage}>Send</button>
             </div>
         </div>

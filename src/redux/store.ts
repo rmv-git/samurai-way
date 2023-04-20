@@ -22,10 +22,10 @@ export let store: StoreType = {
             ],
             arrayMessages: [
                 {id: 1, text: 'Hi!'},
-                {id: 1, text: 'Hi, hi!'},
-                {id: 1, text: 'Yo!'},
-                {id: 1, text: 'Yo, yo!'},
-                {id: 1, text: 'Yo, yo, yo!'},
+                {id: 2, text: 'Hi, hi!'},
+                {id: 3, text: 'Yo!'},
+                {id: 4, text: 'Yo, yo!'},
+                {id: 5, text: 'Yo, yo, yo!'},
             ],
         },
         sidebar: {
