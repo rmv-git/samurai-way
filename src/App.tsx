@@ -15,9 +15,9 @@ type PropsType = {
     state: StateType;
     dispatch: (action: ActionsType) => void;
     // addPost: (value: string) => void;
-    sendMessage: (value: string) => void;
+    // sendMessage: (value: string) => void;
     // updateNewPostText: (value: string) => void;
-    updateNewMessageText: (value: string) => void;
+    // updateNewMessageText: (value: string) => void;
 }
 export const App = (props: PropsType) => {
     return (
@@ -36,8 +36,9 @@ export const App = (props: PropsType) => {
                 <Route exact path={'/messages'}>
                     <DialogsPage arrayMessages={props.state.dialogsPage.arrayMessages}
                                  arrayUsers={props.state.dialogsPage.arrayUsers}
-                                 sendMessage={props.sendMessage}
-                                 updateNewMessageText={props.updateNewMessageText}
+                                 dispatch={props.dispatch}
+                                 // sendMessage={props.sendMessage}
+                                 // updateNewMessageText={props.updateNewMessageText}
                     />
                 </Route>
                 <Login/>
