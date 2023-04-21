@@ -9,12 +9,14 @@ import {Users} from "./components/users/Users";
 import {FooterComponent} from "./components/footer/Footer";
 import {Route} from "react-router-dom";
 import {StateType} from "./types/types";
+import {ActionsType} from "./types/actions";
 
 type PropsType = {
     state: StateType;
-    addPost: (value: string) => void;
+    dispatch: (action: ActionsType) => void;
+    // addPost: (value: string) => void;
     sendMessage: (value: string) => void;
-    updateNewPostText: (value: string) => void;
+    // updateNewPostText: (value: string) => void;
     updateNewMessageText: (value: string) => void;
 }
 export const App = (props: PropsType) => {
@@ -26,8 +28,9 @@ export const App = (props: PropsType) => {
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
                     <ProfilePage arrayPosts={props.state.profilePage.arrayPosts}
-                                 addPost={props.addPost}
-                                 updateNewPostText={props.updateNewPostText}
+                                 dispatch={props.dispatch}
+                                 // addPost={props.addPost}
+                                 // updateNewPostText={props.updateNewPostText}
                     />
                 </Route>
                 <Route exact path={'/messages'}>

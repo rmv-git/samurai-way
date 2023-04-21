@@ -1,3 +1,5 @@
+import { ActionsType } from "./actions"
+
 export type PostType = {
     id: number;
     text: string;
@@ -34,11 +36,12 @@ export type StateType = {
 
 export type StoreType = {
     _state: StateType,
-    addPost: () => void,
-    updateNewPostText: (inputPostText: string) => void,
+/*    addPost: () => void,
+    updateNewPostText: (inputPostText: string) => void,*/
     sendMessage: () => void,
     updateNewMessageText: (inputMessageText: string) => void,
     _renderThree: (_state: StateType) => void,
     getState: () => StateType,
     subscribe: (observer: () => void) => void,
+    dispatch: (action: ActionsType) => void;
 }

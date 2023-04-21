@@ -1,3 +1,4 @@
+import { ActionsType } from "../types/actions";
 import {MessageType, PostType, StoreType} from "../types/types";
 
 export let store: StoreType = {
@@ -36,7 +37,7 @@ export let store: StoreType = {
             ],
         }
     },
-    addPost () {
+/*    addPost () {
         const newPost: PostType = {
             id: new Date().getTime(),
             text: this._state.profilePage.newPostText,
@@ -47,11 +48,11 @@ export let store: StoreType = {
         }
         this._state.profilePage.newPostText = '';
         this._renderThree(this._state);
-    },
-    updateNewPostText (value: string) {
+    },*/
+/*    updateNewPostText (value: string) {
         this._state.profilePage.newPostText = value;
         this._renderThree(this._state);
-    },
+    },*/
     sendMessage () {
         const newMessage: MessageType = {
             id: new Date().getTime(),
@@ -66,6 +67,24 @@ export let store: StoreType = {
     updateNewMessageText (value: string) {
         this._state.dialogsPage.newMessageText = value;
         this._renderThree(this._state);
+    },
+    dispatch(action: ActionsType) {
+        if (action.type === 'ADD_POST') {
+            const newPost: PostType = {
+                id: new Date().getTime(),
+                text: this._state.profilePage.newPostText,
+                likesCount: 0,
+            };
+            if (this._state.profilePage.newPostText !== '') {
+                this._state.profilePage.arrayPosts.push(newPost);
+            }
+            this._state.profilePage.newPostText = '';
+            this._renderThree(this._state);
+        }
+        if (action.type === 'UPDATE_NEW_POST_TEXT') {
+            this._state.profilePage.newPostText = action.value;
+            this._renderThree(this._state);
+        }
     },
     _renderThree() {
         console.log('no subscribers (observers)')
