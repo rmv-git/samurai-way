@@ -1,6 +1,7 @@
 import {ActionsType} from "../types/actions";
 import {MessageType, PostType, StoreType} from "../types/types";
 import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 export let store: StoreType = {
     _state: {
@@ -40,6 +41,7 @@ export let store: StoreType = {
     },
     dispatch(action: ActionsType) {
         profileReducer(store._state.profilePage, action);
+        dialogsReducer(store._state.dialogsPage, action);
         this._renderThree(this._state);
         /*  if (action.type === 'ADD_POST') {
               const newPost: PostType = {
