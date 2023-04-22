@@ -1,5 +1,6 @@
 import {ActionsType} from "../types/actions";
 import {MessageType, PostType, StoreType} from "../types/types";
+import {profileReducer} from "./profile-reducer";
 
 export let store: StoreType = {
     _state: {
@@ -38,37 +39,39 @@ export let store: StoreType = {
         }
     },
     dispatch(action: ActionsType) {
-        if (action.type === 'ADD_POST') {
-            const newPost: PostType = {
-                id: new Date().getTime(),
-                text: this._state.profilePage.newPostText,
-                likesCount: 0,
-            };
-            if (this._state.profilePage.newPostText !== '') {
-                this._state.profilePage.arrayPosts.push(newPost);
-            }
-            this._state.profilePage.newPostText = '';
-            this._renderThree(this._state);
-        }
-        if (action.type === 'UPDATE_NEW_POST_TEXT') {
-            this._state.profilePage.newPostText = action.value;
-            this._renderThree(this._state);
-        }
-        if (action.type === 'SEND_MESSAGE') {
-            const newMessage: MessageType = {
-                id: new Date().getTime(),
-                text: this._state.dialogsPage.newMessageText,
-            };
-            if (this._state.dialogsPage.newMessageText !== '') {
-                this._state.dialogsPage.arrayMessages.push(newMessage);
-            }
-            this._state.dialogsPage.newMessageText = '';
-            this._renderThree(this._state);
-        }
-        if (action.type === 'UPDATE_NEW_MESSAGE_TEXT') {
-            this._state.dialogsPage.newMessageText = action.value;
-            this._renderThree(this._state);
-        }
+        profileReducer(store._state.profilePage, action);
+        this._renderThree(this._state);
+        /*  if (action.type === 'ADD_POST') {
+              const newPost: PostType = {
+                  id: new Date().getTime(),
+                  text: this._state.profilePage.newPostText,
+                  likesCount: 0,
+              };
+              if (this._state.profilePage.newPostText !== '') {
+                  this._state.profilePage.arrayPosts.push(newPost);
+              }
+              this._state.profilePage.newPostText = '';
+              this._renderThree(this._state);
+          }
+          if (action.type === 'UPDATE_NEW_POST_TEXT') {
+              this._state.profilePage.newPostText = action.value;
+              this._renderThree(this._state);
+          }
+          if (action.type === 'SEND_MESSAGE') {
+              const newMessage: MessageType = {
+                  id: new Date().getTime(),
+                  text: this._state.dialogsPage.newMessageText,
+              };
+              if (this._state.dialogsPage.newMessageText !== '') {
+                  this._state.dialogsPage.arrayMessages.push(newMessage);
+              }
+              this._state.dialogsPage.newMessageText = '';
+              this._renderThree(this._state);
+          }
+          if (action.type === 'UPDATE_NEW_MESSAGE_TEXT') {
+              this._state.dialogsPage.newMessageText = action.value;
+              this._renderThree(this._state);
+          }*/
     },
     _renderThree() {
         console.log('no subscribers (observers)')
