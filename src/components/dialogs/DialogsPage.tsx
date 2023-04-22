@@ -3,7 +3,7 @@ import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
 import {Dialog} from "./dialog/Dialog";
 import {Message} from './message/Message';
-import {ActionsType} from "../../types/actions";
+import {ActionsType, sendMessageAC, updateNewMessageTextAC} from "../../types/actions";
 
 type PropsType = {
     arrayMessages: Array<MessageType>;
@@ -13,11 +13,13 @@ type PropsType = {
 
 export const DialogsPage = (props: PropsType) => {
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: 'UPDATE_NEW_MESSAGE_TEXT', value: event.currentTarget.value})
+        // props.dispatch({type: 'UPDATE_NEW_MESSAGE_TEXT', value: event.currentTarget.value})
+        props.dispatch(updateNewMessageTextAC(event.currentTarget.value));
     }
     const sendMessage = () => {
         if (textAreaMessageText.current) {
-            props.dispatch({type: 'SEND_MESSAGE'});
+            // props.dispatch({type: 'SEND_MESSAGE'});
+            props.dispatch(sendMessageAC());
             textAreaMessageText.current.value = ''
         }
     }
