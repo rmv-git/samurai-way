@@ -4,7 +4,7 @@ import './index.css';
 import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
 import {StateType} from "./types/types";
-import {store} from "./redux/store";
+import {RootStateType, store} from "./redux/redux-store";
 
 // ReactDOM.render(
 //     <BrowserRouter>
@@ -26,7 +26,7 @@ import {store} from "./redux/store";
 // }
 // renderThree(state);
 
-export const renderThree = (state: StateType) => {
+export const renderThree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}

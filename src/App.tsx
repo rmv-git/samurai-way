@@ -10,26 +10,27 @@ import {FooterComponent} from "./components/footer/Footer";
 import {Route} from "react-router-dom";
 import {StateType} from "./types/types";
 import {ActionsType} from "./types/actions";
+import {RootStateType} from "./redux/redux-store";
 
 type PropsType = {
-    state: StateType;
+    state: RootStateType;
     dispatch: (action: ActionsType) => void;
 }
 export const App = (props: PropsType) => {
     return (
         <div className={"app-wrapper"}>
             <HeaderComponent/>
-            <Navbar arrayUsers={props.state.sidebar.arrayUsers}/>
+            <Navbar arrayUsers={props.state.sidebarReducer.arrayUsers}/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
-                    <ProfilePage arrayPosts={props.state.profilePage.arrayPosts}
+                    <ProfilePage arrayPosts={props.state.profileReducer.arrayPosts}
                                  dispatch={props.dispatch}
                     />
                 </Route>
                 <Route exact path={'/messages'}>
-                    <DialogsPage arrayMessages={props.state.dialogsPage.arrayMessages}
-                                 arrayUsers={props.state.dialogsPage.arrayUsers}
+                    <DialogsPage arrayMessages={props.state.dialogsReducer.arrayMessages}
+                                 arrayUsers={props.state.dialogsReducer.arrayUsers}
                                  dispatch={props.dispatch}
                     />
                 </Route>

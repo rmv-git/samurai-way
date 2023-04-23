@@ -4,7 +4,7 @@ import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             newPostText: '',
