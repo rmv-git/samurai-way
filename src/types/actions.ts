@@ -1,5 +1,6 @@
 type AddPostActionType = {
     type: 'ADD_POST';
+    newPostText: string;
 }
 type UpdateNewPostTextActionType = {
     type: 'UPDATE_NEW_POST_TEXT';
@@ -18,17 +19,18 @@ export type ActionsType = AddPostActionType
     | SendMessageActionType
     | UpdateNewMessageTextActionType;
 
-export const addPostAC = (): AddPostActionType => {
+export const addPostAC = (value: string): AddPostActionType => {
     return {
         type: 'ADD_POST',
+        newPostText: value,
     }
 }
-export const updateNewPostTextAC = (newPostText: string): UpdateNewPostTextActionType => {
-    return {
-        type: 'UPDATE_NEW_POST_TEXT',
-        value: newPostText,
-    }
-}
+// export const updateNewPostTextAC = (newPostText: string): UpdateNewPostTextActionType => {
+//     return {
+//         type: 'UPDATE_NEW_POST_TEXT',
+//         value: newPostText,
+//     }
+// }
 export const sendMessageAC = (): SendMessageActionType => {
     return {
         type: 'SEND_MESSAGE',

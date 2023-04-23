@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {PostType} from "../../types/types";
@@ -11,19 +11,30 @@ type PropsType = {
 }
 
 export const ProfilePage = (props: PropsType) => {
+
+    const [value, setValue] = useState('');
+
+    // const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    //     // props.dispatch({type: 'UPDATE_NEW_POST_TEXT', value: event.currentTarget.value});
+    //     props.dispatch(updateNewPostTextAC(event.currentTarget.value));
+    // }
+
+    // let textAreaPostText = React.createRef<HTMLTextAreaElement>();
+    //
+    // const addPost = () => {
+    //     if (textAreaPostText.current) {
+    //         // props.dispatch({type: 'ADD_POST'})
+    //         props.dispatch(addPostAC());
+    //         textAreaPostText.current.value = ''
+    //     }
+    // }
+
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.dispatch({type: 'UPDATE_NEW_POST_TEXT', value: event.currentTarget.value});
-        props.dispatch(updateNewPostTextAC(event.currentTarget.value));
+        setValue(event.currentTarget.value);
     }
-
-    let textAreaPostText = React.createRef<HTMLTextAreaElement>();
-
     const addPost = () => {
-        if (textAreaPostText.current) {
-            // props.dispatch({type: 'ADD_POST'})
-            props.dispatch(addPostAC());
-            textAreaPostText.current.value = ''
-        }
+        props.dispatch(addPostAC(value));
+        setValue('');
     }
 
     return (
@@ -31,7 +42,7 @@ export const ProfilePage = (props: PropsType) => {
             <ProfileDescription/>
             <Posts posts={props.arrayPosts}/>
             <div>
-                <textarea ref={textAreaPostText} onChange={onChangeHandler}/>
+                <textarea value={value} onChange={onChangeHandler}/>
                 <button onClick={addPost}>Add</button>
             </div>
         </div>

@@ -14,17 +14,25 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
         case 'ADD_POST':
             const newPost: PostType = {
                 id: new Date().getTime(),
-                text: state.newPostText,
+                text: action.newPostText,
                 likesCount: 0,
             };
-            if (state.newPostText !== '') {
-                state.arrayPosts.push(newPost);
-            }
-            state.newPostText = '';
-            return state;
-        case 'UPDATE_NEW_POST_TEXT':
-            state.newPostText = action.value;
-            return state;
+            return {...state, arrayPosts: [newPost, ...state.arrayPosts]}
+
+        // case 'ADD_POST':
+        //     const newPost: PostType = {
+        //         id: new Date().getTime(),
+        //         text: state.newPostText,
+        //         likesCount: 0,
+        //     };
+        //     if (state.newPostText !== '') {
+        //         state.arrayPosts.push(newPost);
+        //     }
+        //     state.newPostText = '';
+        //     return state;
+        // case 'UPDATE_NEW_POST_TEXT':
+        //     state.newPostText = action.value;
+        //     return state;
         default:
             return state;
     }
