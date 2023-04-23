@@ -11,6 +11,7 @@ import {Route} from "react-router-dom";
 import {StateType} from "./types/types";
 import {ActionsType} from "./types/actions";
 import {RootStateType} from "./redux/redux-store";
+import {ProfilePageContainer} from "./components/profile/ProfilePageContainer";
 
 type PropsType = {
     state: RootStateType;
@@ -24,7 +25,7 @@ export const App = (props: PropsType) => {
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
-                    <ProfilePage arrayPosts={props.state.profileReducer.arrayPosts}
+                    <ProfilePageContainer arrayPosts={props.state.profileReducer.arrayPosts}
                                  dispatch={props.dispatch}
                     />
                 </Route>
