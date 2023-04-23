@@ -24,16 +24,9 @@ export const dialogsReducer = (state = initialState, action: ActionsType): Dialo
         case 'SEND_MESSAGE':
             const newMessage: MessageType = {
                 id: new Date().getTime(),
-                text: state.newMessageText,
+                text: action.newMessageText,
             };
-            if (state.newMessageText !== '') {
-                state.arrayMessages.push(newMessage);
-            }
-            state.newMessageText = '';
-            return state;
-        case 'UPDATE_NEW_MESSAGE_TEXT':
-            state.newMessageText = action.value;
-            return state;
+            return {...state, arrayMessages: [...state.arrayMessages, newMessage]}
         default:
             return state;
     }
