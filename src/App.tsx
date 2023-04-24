@@ -12,6 +12,7 @@ import {StateType} from "./types/types";
 import {ActionsType} from "./types/actions";
 import {RootStateType} from "./redux/redux-store";
 import {ProfilePageContainer} from "./components/profile/ProfilePageContainer";
+import {DialogsPageContainer} from "./components/dialogs/DialogsPageContainer";
 
 type PropsType = {
     state: RootStateType;
@@ -30,7 +31,7 @@ export const App = (props: PropsType) => {
                     />
                 </Route>
                 <Route exact path={'/messages'}>
-                    <DialogsPage arrayMessages={props.state.dialogsReducer.arrayMessages}
+                    <DialogsPageContainer arrayMessages={props.state.dialogsReducer.arrayMessages}
                                  arrayUsers={props.state.dialogsReducer.arrayUsers}
                                  dispatch={props.dispatch}
                     />

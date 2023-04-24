@@ -9,18 +9,12 @@ type PropsType = {
     arrayMessages: Array<MessageType>;
     arrayUsers: Array<UserType>;
     dispatch: (actions: ActionsType) => void;
+    onChangeHandler: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+    sendMessage: () => void;
+    value: string;
 }
 
 export const DialogsPage = (props: PropsType) => {
-
-    const [value, setValue] = useState('');
-    const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(event.currentTarget.value);
-    }
-    const sendMessage = () => {
-        props.dispatch(sendMessageAC(value));
-        setValue('');
-    }
 
     return (
         <div className={classes.container}>
@@ -35,8 +29,8 @@ export const DialogsPage = (props: PropsType) => {
                 }
             </div>
             <div>
-                <textarea value={value} onChange={onChangeHandler}/>
-                <button onClick={sendMessage}>Send</button>
+                <textarea value={props.value} onChange={props.onChangeHandler}/>
+                <button onClick={props.sendMessage}>Send</button>
             </div>
         </div>
     );
