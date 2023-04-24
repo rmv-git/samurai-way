@@ -11,9 +11,9 @@ export const Posts = (props: PropsType) => {
             <h3>
                 My posts:
             </h3>
-                {
-                    props.posts.map((post: PostType) => <Post post={post} key={post.id}/>)
-                }
+            {
+                props.posts.map((post: PostType) => <Post post={post} key={post.id}/>)
+            }
         </div>
     );
 };

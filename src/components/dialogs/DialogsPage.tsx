@@ -1,9 +1,9 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
 import {Dialog} from "./dialog/Dialog";
 import {Message} from './message/Message';
-import {ActionsType, sendMessageAC} from "../../types/actions";
+import {ActionsType} from "../../types/actions";
 
 type PropsType = {
     arrayMessages: Array<MessageType>;

@@ -1,8 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
-import {Dialog} from "./dialog/Dialog";
-import {Message} from './message/Message';
 import {ActionsType, sendMessageAC} from "../../types/actions";
 import {DialogsPage} from "./DialogsPage";
 

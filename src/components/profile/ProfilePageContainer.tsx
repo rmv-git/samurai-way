@@ -1,8 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import classes from "./ProfilePage.module.css";
-import {ProfileDescription} from "./description/ProfileDescription";
 import {PostType} from "../../types/types";
-import {Posts} from "./posts/Posts";
 import {ActionsType, addPostAC} from "../../types/actions";
 import {ProfilePage} from "./ProfilePage";
 
