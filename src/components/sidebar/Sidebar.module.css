@@ -1,0 +1,11 @@
+.wrapper {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    border: solid white 2px;
+}
+
+.img {
+    width: 48px;
+    height: 48px;
+}
