@@ -4,6 +4,7 @@ import './index.css';
 import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
 import {RootStateType, store} from "./redux/redux-store";
+import {Provider} from "react-redux";
 
 // ReactDOM.render(
 //     <BrowserRouter>
@@ -28,9 +29,11 @@ import {RootStateType, store} from "./redux/redux-store";
 export const renderThree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state}
-                 dispatch={store.dispatch.bind(store)}
-            />
+            <Provider store={store}>
+                <App state={state}
+                     dispatch={store.dispatch.bind(store)}
+                />
+            </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );

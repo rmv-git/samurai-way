@@ -1,20 +1,13 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
 import {Dialog} from "./dialog/Dialog";
 import {Message} from './message/Message';
-import {ActionsType} from "../../types/actions";
+import {DialogsPageContainerType} from "./DialogsPageContainer";
 
-type PropsType = {
-    arrayMessages: Array<MessageType>;
-    arrayUsers: Array<UserType>;
-    dispatch: (actions: ActionsType) => void;
-    onChangeHandler: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-    sendMessage: () => void;
-    value: string;
-}
+export const DialogsPage = (props: DialogsPageContainerType) => {
 
-export const DialogsPage = (props: PropsType) => {
+    const [value, setValue] = useState<string>('');
 
     return (
         <div className={classes.container}>
@@ -29,8 +22,9 @@ export const DialogsPage = (props: PropsType) => {
                 }
             </div>
             <div>
-                <textarea value={props.value} onChange={props.onChangeHandler}/>
-                <button onClick={props.sendMessage}>Send</button>
+                <textarea value={value}
+                          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.currentTarget.value)}/>
+                <button onClick={() => props.sendMessage(value)}>Send</button>
             </div>
         </div>
     );

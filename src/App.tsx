@@ -24,14 +24,11 @@ export const App = (props: PropsType) => {
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
                     <ProfilePageContainer arrayPosts={props.state.profileReducer.arrayPosts}
-                                 dispatch={props.dispatch}
+                                          dispatch={props.dispatch}
                     />
                 </Route>
                 <Route exact path={'/messages'}>
-                    <DialogsPageContainer arrayMessages={props.state.dialogsReducer.arrayMessages}
-                                 arrayUsers={props.state.dialogsReducer.arrayUsers}
-                                 dispatch={props.dispatch}
-                    />
+                    <DialogsPageContainer/>
                 </Route>
                 <Login/>
                 <Users/>
