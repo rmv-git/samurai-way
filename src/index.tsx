@@ -30,9 +30,7 @@ export const renderThree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-                <App state={state}
-                     dispatch={store.dispatch.bind(store)}
-                />
+                <App />
             </Provider>
         </BrowserRouter>,
         document.getElementById('root')

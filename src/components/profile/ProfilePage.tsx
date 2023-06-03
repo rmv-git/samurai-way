@@ -1,24 +1,22 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
-import {PostType} from "../../types/types";
 import {Posts} from "./posts/Posts";
+import {ProfilePageContainerType} from "./ProfilePageContainer";
 
-type PropsType = {
-    arrayPosts: Array<PostType>;
-    value: string
-    addPost: () => void;
-    onChangeHandler: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-}
+export const ProfilePage = (props: ProfilePageContainerType) => {
 
-export const ProfilePage = (props: PropsType) => {
+    const [value, setValue] = useState<string>('');
+
+
     return (
         <div className={classes.content}>
             <ProfileDescription/>
             <Posts posts={props.arrayPosts}/>
             <div>
-                <textarea value={props.value} onChange={props.onChangeHandler}/>
-                <button onClick={props.addPost}>Add</button>
+                <textarea value={value}
+                          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.currentTarget.value)}/>
+                <button onClick={() => props.addPost(value)}>Add</button>
             </div>
         </div>
     );

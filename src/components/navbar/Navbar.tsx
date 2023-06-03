@@ -3,12 +3,9 @@ import "./Navbar.module.css";
 import classes from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
 import {Sidebar} from "../sidebar/Sidebar";
-import {UserType} from "../../types/types";
+import {NavbarContainerType} from "./NavbarContainer";
 
-type PropsType = {
-    arrayUsers: Array<UserType>;
-}
-export const Navbar = (props: PropsType) => {
+export const Navbar = (props: NavbarContainerType) => {
     return (
         <div className={classes.nav}>
             <div className={classes.link}>

@@ -6,26 +6,19 @@ import {Login} from "./components/login/Login";
 import {Users} from "./components/users/Users";
 import {FooterComponent} from "./components/footer/Footer";
 import {Route} from "react-router-dom";
-import {ActionsType} from "./types/actions";
-import {RootStateType} from "./redux/redux-store";
 import {ProfilePageContainer} from "./components/profile/ProfilePageContainer";
 import {DialogsPageContainer} from "./components/dialogs/DialogsPageContainer";
+import {NavbarContainer} from "./components/navbar/NavbarContainer";
 
-type PropsType = {
-    state: RootStateType;
-    dispatch: (action: ActionsType) => void;
-}
-export const App = (props: PropsType) => {
+export const App = () => {
     return (
         <div className={"app-wrapper"}>
             <HeaderComponent/>
-            <Navbar arrayUsers={props.state.sidebarReducer.arrayUsers}/>
+            <NavbarContainer/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile'}>
-                    <ProfilePageContainer arrayPosts={props.state.profileReducer.arrayPosts}
-                                          dispatch={props.dispatch}
-                    />
+                    <ProfilePageContainer/>
                 </Route>
                 <Route exact path={'/messages'}>
                     <DialogsPageContainer/>
