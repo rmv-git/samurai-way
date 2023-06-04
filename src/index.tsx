@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
-import {RootStateType, store} from "./redux/redux-store";
+import {store} from "./redux/redux-store";
 import {Provider} from "react-redux";
 
-// ReactDOM.render(
-//     <BrowserRouter>
-//         <App state={state}
-//         />
-//     </BrowserRouter>,
-//     document.getElementById('root')
-// );
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
 
 // export const renderThree = (state: StateType) => {
 //     ReactDOM.render(
@@ -26,7 +27,7 @@ import {Provider} from "react-redux";
 // }
 // renderThree(state);
 
-export const renderThree = (state: RootStateType) => {
+/*export const renderThree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
@@ -41,4 +42,4 @@ renderThree(store.getState());
 store.subscribe(() => {
     let state = store.getState();
     renderThree(state)
-});
+});*/

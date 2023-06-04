@@ -1,6 +1,6 @@
 import {ActionsType} from "../types/actions";
 import {MessageType, PostType, StoreType} from "../types/types";
-import {profileReducer} from "./profile-reducer";
+import {profileReducer, ProfileReducerActions} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
@@ -40,7 +40,7 @@ let store: StoreType = {
             ],
         }
     },
-    dispatch(action: ActionsType) {
+    dispatch(action: any) {
         profileReducer(store._state.profilePage, action);
         dialogsReducer(store._state.dialogsPage, action);
         sidebarReducer(store._state.sidebar, action);
