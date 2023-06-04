@@ -1,30 +1,36 @@
 import React from 'react';
 import {MessageType, UserType} from "../../types/types";
-import {sendMessageAC} from "../../types/actions";
 import {DialogsPage} from "./DialogsPage";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
+import {sendMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
 
 type MapStateToPropsType = {
     arrayUsers: UserType[];
     arrayMessages: MessageType[];
+    newMessageText: string,
 }
 type MapDispatchToPropsType = {
-    sendMessage: (value: string) => void;
+    updateMessage: (value: string) => void;
+    sendMessage: () => void;
 }
 export type DialogsPageContainerType = MapDispatchToPropsType & MapStateToPropsType;
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
+        newMessageText: state.dialogsReducer.newMessageText,
         arrayUsers: state.dialogsReducer.arrayUsers,
         arrayMessages: state.dialogsReducer.arrayMessages,
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        sendMessage: (value: string) => {
-            dispatch(sendMessageAC(value))
+        updateMessage: (value: string) => {
+            dispatch(updateMessageAC(value))
+        },
+        sendMessage: () => {
+            dispatch(sendMessageAC())
         },
     }
 }

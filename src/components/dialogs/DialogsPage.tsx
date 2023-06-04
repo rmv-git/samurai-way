@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from "./DialogsPage.module.css";
 import {MessageType, UserType} from "../../types/types";
 import {Dialog} from "./dialog/Dialog";
@@ -6,8 +6,6 @@ import {Message} from './message/Message';
 import {DialogsPageContainerType} from "./DialogsPageContainer";
 
 export const DialogsPage = (props: DialogsPageContainerType) => {
-
-    const [value, setValue] = useState<string>('');
 
     return (
         <div className={classes.container}>
@@ -22,9 +20,9 @@ export const DialogsPage = (props: DialogsPageContainerType) => {
                 }
             </div>
             <div>
-                <textarea value={value}
-                          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.currentTarget.value)}/>
-                <button onClick={() => props.sendMessage(value)}>Send</button>
+                <textarea value={props.newMessageText}
+                          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => props.updateMessage(event.currentTarget.value)}/>
+                <button onClick={() => props.sendMessage()}>Send</button>
             </div>
         </div>
     );

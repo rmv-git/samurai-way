@@ -1,4 +1,3 @@
-import {ActionsType} from "../types/actions";
 import {DialogsPageType, MessageType} from "../types/types";
 
 const initialState: DialogsPageType = {
@@ -19,15 +18,40 @@ const initialState: DialogsPageType = {
         {id: 5, text: 'Yo, yo, yo!'},
     ],
 }
-export const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: DialogsReducerActionsType): DialogsPageType => {
     switch (action.type) {
         case 'SEND_MESSAGE':
             const newMessage: MessageType = {
                 id: new Date().getTime(),
-                text: action.newMessageText,
+                text: state.newMessageText,
             };
-            return {...state, arrayMessages: [...state.arrayMessages, newMessage]}
+            return {...state, arrayMessages: [...state.arrayMessages, newMessage], newMessageText: ''}
+        case 'UPDATE_MESSAGE':
+            return {...state, newMessageText: action.newMessageText}
         default:
             return state;
+    }
+}
+
+type SendMessageActionType = {
+    type: 'SEND_MESSAGE';
+}
+type UpdateMessageActionType = {
+    type: 'UPDATE_MESSAGE',
+    newMessageText: string,
+}
+
+export type DialogsReducerActionsType = SendMessageActionType | UpdateMessageActionType;
+
+export const sendMessageAC = (): SendMessageActionType => {
+    return {
+        type: 'SEND_MESSAGE',
+    }
+}
+
+export const updateMessageAC = (value: string): UpdateMessageActionType => {
+    return {
+        type: 'UPDATE_MESSAGE',
+        newMessageText: value,
     }
 }

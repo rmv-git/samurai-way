@@ -1,6 +1,5 @@
-import {ActionsType} from "../types/actions";
-import {MessageType, PostType, StoreType} from "../types/types";
-import {profileReducer, ProfileReducerActions} from "./profile-reducer";
+import {StoreType} from "../types/types";
+import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 

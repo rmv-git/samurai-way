@@ -1,4 +1,3 @@
-import {ActionsType} from "./actions"
 
 export type PostType = {
     id: number;
@@ -39,5 +38,5 @@ export type StoreType = {
     _renderThree: (_state: StateType) => void;
     getState: () => StateType;
     subscribe: (observer: () => void) => void;
-    dispatch: (action: ActionsType) => void;
+    dispatch: (action: any) => void;
 }
