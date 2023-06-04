@@ -1,4 +1,3 @@
-
 export type PostType = {
     id: number;
     text: string;
@@ -39,4 +38,21 @@ export type StoreType = {
     getState: () => StateType;
     subscribe: (observer: () => void) => void;
     dispatch: (action: any) => void;
+}
+
+export type PhotosResponseType = {
+    small: string | undefined,
+    large: string | undefined,
+}
+export type UserResponseType = {
+    name: string,
+    id: number,
+    photos: PhotosResponseType,
+    status: string | null,
+    followed: boolean
+}
+export type UsersResponseType = {
+    items: UserResponseType[],
+    totalCount: number,
+    error: string | null,
 }

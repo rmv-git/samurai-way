@@ -24,7 +24,9 @@ export const App = () => {
                     <DialogsPageContainer/>
                 </Route>
                 <Login/>
-                <Users/>
+                <Route exact path={'/users'}>
+                    <Users/>
+                </Route>
             </div>
         </div>
     );
