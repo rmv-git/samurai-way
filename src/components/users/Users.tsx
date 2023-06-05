@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import axios from "axios";
 import {UserResponseType, UsersResponseType} from "../../types/types";
 import avatar from './../../assets/images/avatar_male_person.png';
+import {getUsersAC} from "../../redux/users-reducer";
+import {UsersContainerPropsType} from "./UsersContainer";
 
-export const Users = () => {
-
-    const [users, setUser] = useState<UserResponseType[]>([]);
+export const Users = (props: UsersContainerPropsType) => {
 
     useEffect(() => {
         axios.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
-            .then(res => setUser(res.data.items))
+            .then(res => getUsersAC(res.data.items))
     }, []);
 
     return (
         <div>
             {
-                users.map((user: UserResponseType) =>
+                props.users.map((user: UserResponseType) =>
                     <div>
                         <div>
                             {user.name}

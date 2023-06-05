@@ -9,6 +9,7 @@ import {Route} from "react-router-dom";
 import {ProfilePageContainer} from "./components/profile/ProfilePageContainer";
 import {DialogsPageContainer} from "./components/dialogs/DialogsPageContainer";
 import {NavbarContainer} from "./components/navbar/NavbarContainer";
+import {UsersContainer} from "./components/users/UsersContainer";
 
 export const App = () => {
     return (
@@ -25,7 +26,7 @@ export const App = () => {
                 </Route>
                 <Login/>
                 <Route exact path={'/users'}>
-                    <Users/>
+                    <UsersContainer/>
                 </Route>
             </div>
         </div>
