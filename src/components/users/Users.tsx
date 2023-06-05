@@ -8,9 +8,17 @@ export const Users = (props: UsersContainerPropsType) => {
 
     useEffect(() => {
         API.getUsers().then(
-            res => props.getUsers(res.items)
+            res => props.getUsers(res.items, res.totalCount)
         )
     }, []);
+
+    let allPages = Math.ceil(props.totalCount / props.pageSize);
+
+    let ArrayPages: Array<number> = [];
+
+    for (let i = 1; i <= allPages; i++) {
+        ArrayPages.push(i)
+    }
 
     return (
         <div>
@@ -32,6 +40,9 @@ export const Users = (props: UsersContainerPropsType) => {
                     </div>
                 )
             }
+            <div>
+                {ArrayPages.map(page => <button>{page}</button>)}
+            </div>
         </div>
     );
 };
