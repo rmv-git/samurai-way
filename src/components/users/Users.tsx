@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
-import axios from "axios";
-import {UserResponseType, UsersResponseType} from "../../types/types";
+import {UserResponseType} from "../../types/types";
 import avatar from './../../assets/images/avatar_male_person.png';
-import {getUsersAC} from "../../redux/users-reducer";
 import {UsersContainerPropsType} from "./UsersContainer";
+import {API} from "../../api/API";
 
 export const Users = (props: UsersContainerPropsType) => {
 
     useEffect(() => {
-        axios.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
-            .then(res => getUsersAC(res.data.items))
+        API.getUsers().then(
+            res => props.getUsers(res.items)
+        )
     }, []);
 
     return (

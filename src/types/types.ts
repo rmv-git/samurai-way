@@ -56,3 +56,8 @@ export type UsersResponseType = {
     totalCount: number,
     error: string | null,
 }
+export type ResponseType<T = {}> = {
+    totalCount: number,
+    error: string | null,
+    items: T
+}
