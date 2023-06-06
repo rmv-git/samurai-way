@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ResponseType, UserResponseType, UsersResponseType} from "../types/types";
+import {ResponseFollow, ResponseType, UserResponseType, UsersResponseType} from "../types/types";
 
 const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
@@ -16,5 +16,15 @@ export const API = {
                 res => res.data
             )
         )
-    }
+    },
+    follow(userId: number) {
+        return (
+            instance.post(`follow/${userId}`)
+        )
+    },
+    unfollow(userId: number) {
+        return (
+            instance.delete<ResponseFollow>(`follow/${userId}`)
+        )
+    },
 }

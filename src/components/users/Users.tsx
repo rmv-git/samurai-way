@@ -24,7 +24,7 @@ export const Users = (props: UsersContainerPropsType) => {
         <div>
             {
                 props.users.map((user: UserResponseType) =>
-                    <div>
+                    <div key={user.id}>
                         <div>
                             {user.name}
                         </div>
@@ -34,14 +34,16 @@ export const Users = (props: UsersContainerPropsType) => {
                                  src={user.photos.small ? user.photos.large : avatar}/>
                         </div>
                         <div>
-                            <button>FOLLOW</button>
-                            <button>UNFOLLOW</button>
+                            {user.followed
+                                ? <button onClick={() => API.unfollow(user.id).then(res => props.unfollow(user.id))}>UNFOLLOW</button>
+                                : <button onClick={() => API.follow(user.id).then(res => props.follow(user.id))}>FOLLOW</button>
+                            }
                         </div>
                     </div>
                 )
             }
             <div>
-                {ArrayPages.map(page => <button>{page}</button>)}
+                {ArrayPages.map((page, index) => <button key={index}>{page}</button>)}
             </div>
         </div>
     );

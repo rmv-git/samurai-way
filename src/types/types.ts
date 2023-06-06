@@ -61,3 +61,9 @@ export type ResponseType<T = {}> = {
     error: string | null,
     items: T
 }
+
+export type ResponseFollow = {
+    resultCode: number,
+    messages: Array<string>,
+    data: {},
+}
