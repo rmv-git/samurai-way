@@ -3,24 +3,25 @@ import {UserResponseType} from "../../types/types";
 import avatar from './../../assets/images/avatar_male_person.png';
 import {UsersContainerPropsType} from "./UsersContainer";
 import {API} from "../../api/API";
+import {Pagination} from "../../features/pagination/Pagination";
+import {store} from "../../redux/redux-store";
 
 export class UsersClassComponent extends React.Component<UsersContainerPropsType, any> {
 
     componentDidMount() {
-        API.getUsers().then(
+        API.getUsers(this.props.currentPage, this.props.pageSize).then(
+            res => this.props.getUsers(res.items, res.totalCount)
+        )
+    }
+
+    selectPage = (page: number) => {
+        this.props.selectPage(page)
+        API.getUsers(this.props.currentPage, this.props.pageSize).then(
             res => this.props.getUsers(res.items, res.totalCount)
         )
     }
 
     render() {
-
-        let allPages = Math.ceil(this.props.totalCount / this.props.pageSize);
-
-        let ArrayPages: Array<number> = [];
-
-        for (let i = 1; i <= allPages; i++) {
-            ArrayPages.push(i)
-        }
 
         return (
             <div>
@@ -47,9 +48,10 @@ export class UsersClassComponent extends React.Component<UsersContainerPropsType
                         </div>
                     )
                 }
-                <div>
-                    {ArrayPages.map((page, index) => <button key={index}>{page}</button>)}
-                </div>
+                <Pagination totalCount={this.props.totalCount}
+                            pageSize={this.props.pageSize}
+                            currentPage={this.props.currentPage}
+                            selectPage={this.selectPage}/>
             </div>
         );
     }
