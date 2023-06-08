@@ -2,15 +2,7 @@ import React from "react";
 import {connect, ConnectedProps} from "react-redux";
 import {Users} from "./Users";
 import {UserResponseType} from "../../types/types";
-import {Dispatch} from "redux";
-import {
-    getUsersAC,
-    followUserAC,
-    unFollowUserAC,
-    selectPageAC,
-    getUsersThunk,
-    selectPageThunk, followUserThunk, unfollowUserThunk
-} from "../../redux/users-reducer";
+import {followUserThunk, getUsersThunk, selectPageThunk, unfollowUserThunk} from "../../redux/users-reducer";
 import {RootStateType} from "../../redux/redux-store";
 
 
@@ -46,12 +38,6 @@ type MapStateToPropsType = {
     currentPage: number,
     pageSize: number,
 }
-// type MapDispatchToPropsType = {
-//     getUsers: (items: UserResponseType[], totalCount: number) => void;
-//     follow: (userId: number) => void;
-//     unfollow: (userId: number) => void;
-//     selectPage: (page: number) => void;
-// }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
@@ -61,23 +47,6 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         pageSize: state.usersReducer.pageSize,
     }
 }
-
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-//     return {
-//         getUsers: (items: UserResponseType[], totalCount: number) => {
-//             dispatch(getUsersAC(items, totalCount))
-//         },
-//         follow: (userId: number) => {
-//             dispatch(followUserAC(userId))
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unFollowUserAC(userId))
-//         },
-//         selectPage: (page: number) => {
-//             dispatch(selectPageAC(page))
-//         }
-//     }
-// }
 
 const ConnectComponent = connect(mapStateToProps, {
     getUsersThunk,
