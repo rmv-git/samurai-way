@@ -95,15 +95,15 @@ export const selectPageAC = (page: number): SelectPageActionType => {
     }
 }
 
-export const getUsersThunk = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
-    API.getUsers(pageSize, currentPage).then(
+export const getUsersThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    API.getUsers(currentPage, pageSize).then(
         res => dispatch(getUsersAC(res.items, res.totalCount))
     )
 }
 
-export const selectPageThunk = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+export const selectPageThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(selectPageAC(currentPage))
-    API.getUsers(pageSize, currentPage).then(
+    API.getUsers(currentPage, pageSize).then(
         res => dispatch(getUsersAC(res.items, res.totalCount))
     )
 }

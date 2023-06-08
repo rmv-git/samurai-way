@@ -11,8 +11,8 @@ export class UsersClassContainer extends React.Component<UsersContainerPropsType
         this.props.getUsersThunk(this.props.pageSize, this.props.currentPage)
     }
 
-    selectPage = () => {
-        this.props.selectPageThunk(this.props.pageSize, this.props.currentPage)
+    selectPage = (page: number) => {
+        this.props.selectPageThunk(page, this.props.currentPage)
     }
 
     render() {
