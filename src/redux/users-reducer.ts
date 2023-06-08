@@ -1,4 +1,6 @@
 import {UserResponseType} from "../types/types";
+import {Dispatch} from "redux";
+import {API} from "../api/API";
 
 type InitialStateType = {
     items: UserResponseType[];
@@ -92,3 +94,36 @@ export const selectPageAC = (page: number): SelectPageActionType => {
         page,
     }
 }
+
+export const getUsersThunk = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+    API.getUsers(pageSize, currentPage).then(
+        res => dispatch(getUsersAC(res.items, res.totalCount))
+    )
+}
+
+export const selectPageThunk = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+    dispatch(selectPageAC(currentPage))
+    API.getUsers(pageSize, currentPage).then(
+        res => dispatch(getUsersAC(res.items, res.totalCount))
+    )
+}
+
+export const followUserThunk = (userId: number) => (dispatch: Dispatch) => {
+    API.follow(userId).then(
+        res => {
+            if (res.data.resultCode === 0) {
+                dispatch(followUserAC(userId))
+            }
+        }
+    )
+}
+export const unfollowUserThunk = (userId: number) => (dispatch: Dispatch) => {
+    API.unfollow(userId).then(
+        res => {
+            if (res.data.resultCode === 0) {
+                dispatch(unFollowUserAC(userId))
+            }
+        }
+    )
+}
+

@@ -1,9 +1,44 @@
-import {connect} from "react-redux";
-import {UsersClassComponent} from "./Users";
+import React from "react";
+import {connect, ConnectedProps} from "react-redux";
+import {Users} from "./Users";
 import {UserResponseType} from "../../types/types";
 import {Dispatch} from "redux";
-import {getUsersAC, followUserAC, unFollowUserAC, selectPageAC} from "../../redux/users-reducer";
+import {
+    getUsersAC,
+    followUserAC,
+    unFollowUserAC,
+    selectPageAC,
+    getUsersThunk,
+    selectPageThunk, followUserThunk, unfollowUserThunk
+} from "../../redux/users-reducer";
 import {RootStateType} from "../../redux/redux-store";
+
+
+export class UsersClassContainer extends React.Component<UsersContainerPropsType> {
+    componentDidMount() {
+        this.props.getUsersThunk(this.props.pageSize, this.props.currentPage)
+    }
+
+    selectPage = () => {
+        this.props.selectPageThunk(this.props.pageSize, this.props.currentPage)
+    }
+
+    render() {
+        return (
+            <>
+                <Users
+                    users={this.props.users}
+                    totalCount={this.props.totalCount}
+                    currentPage={this.props.currentPage}
+                    selectPage={this.selectPage}
+                    pageSize={this.props.pageSize}
+                    follow={this.props.followUserThunk}
+                    unfollow={this.props.unfollowUserThunk}
+                />
+            </>
+        );
+    }
+}
 
 type MapStateToPropsType = {
     users: UserResponseType[],
@@ -11,13 +46,12 @@ type MapStateToPropsType = {
     currentPage: number,
     pageSize: number,
 }
-type MapDispatchToPropsType = {
-    getUsers: (items: UserResponseType[], totalCount: number) => void;
-    follow: (userId: number) => void;
-    unfollow: (userId: number) => void;
-    selectPage: (page: number) => void;
-}
-export type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType;
+// type MapDispatchToPropsType = {
+//     getUsers: (items: UserResponseType[], totalCount: number) => void;
+//     follow: (userId: number) => void;
+//     unfollow: (userId: number) => void;
+//     selectPage: (page: number) => void;
+// }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
@@ -27,20 +61,30 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         pageSize: state.usersReducer.pageSize,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        getUsers: (items: UserResponseType[], totalCount: number) => {
-            dispatch(getUsersAC(items, totalCount))
-        },
-        follow: (userId: number) => {
-            dispatch(followUserAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unFollowUserAC(userId))
-        },
-        selectPage: (page: number) => {
-            dispatch(selectPageAC(page))
-        }
-    }
-}
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassComponent)
+
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+//     return {
+//         getUsers: (items: UserResponseType[], totalCount: number) => {
+//             dispatch(getUsersAC(items, totalCount))
+//         },
+//         follow: (userId: number) => {
+//             dispatch(followUserAC(userId))
+//         },
+//         unfollow: (userId) => {
+//             dispatch(unFollowUserAC(userId))
+//         },
+//         selectPage: (page: number) => {
+//             dispatch(selectPageAC(page))
+//         }
+//     }
+// }
+
+const ConnectComponent = connect(mapStateToProps, {
+    getUsersThunk,
+    selectPageThunk,
+    followUserThunk,
+    unfollowUserThunk,
+});
+
+export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>;
+export const UsersContainer = ConnectComponent(UsersClassContainer);

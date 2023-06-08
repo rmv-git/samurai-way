@@ -25,7 +25,7 @@ export const App = () => {
                 </Route>
                 <Login/>
                 <Route exact path={'/users'}>
-                    <UsersContainer/>
+                    <UsersContainer />
                 </Route>
             </div>
         </div>
