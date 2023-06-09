@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ResponseFollow, ResponseType, UserResponseType} from "../types/types";
+import {ResponseFollow, ResponseType, UserProfileResponseType, UserResponseType} from "../types/types";
 
 const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
@@ -27,4 +27,9 @@ export const API = {
             instance.delete<ResponseFollow>(`follow/${userId}`)
         )
     },
+    getUserProfile(userId: number) {
+        return (
+            instance.get<UserProfileResponseType>(`user/${userId}`)
+        )
+    }
 }

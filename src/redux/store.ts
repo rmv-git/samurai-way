@@ -1,3 +1,5 @@
+export {};
+/*
 import {StoreType} from "../types/types";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
@@ -44,7 +46,7 @@ let store: StoreType = {
         dialogsReducer(store._state.dialogsPage, action);
         sidebarReducer(store._state.sidebar, action);
         this._renderThree(this._state);
-        /*  if (action.type === 'ADD_POST') {
+        /!*  if (action.type === 'ADD_POST') {
               const newPost: PostType = {
                   id: new Date().getTime(),
                   text: this._state.profilePage.newPostText,
@@ -74,7 +76,7 @@ let store: StoreType = {
           if (action.type === 'UPDATE_NEW_MESSAGE_TEXT') {
               this._state.dialogsPage.newMessageText = action.value;
               this._renderThree(this._state);
-          }*/
+          }*!/
     },
     _renderThree() {
         console.log('no subscribers (observers)')
@@ -85,4 +87,4 @@ let store: StoreType = {
     subscribe(observer) {
         this._renderThree = observer;
     },
-};
+};*/

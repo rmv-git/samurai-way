@@ -67,3 +67,21 @@ export type ResponseFollow = {
     messages: Array<string>,
     data: {},
 }
+type UserContactsResponseType = {
+    github: string;
+    vk: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    website: string;
+    youtube: string;
+    mainLink: string;
+}
+export type UserProfileResponseType = {
+    userId: number;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    contacts: UserContactsResponseType;
+    photos: PhotosResponseType;
+}
