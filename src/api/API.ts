@@ -29,7 +29,7 @@ export const API = {
     },
     getUserProfile(userId: number) {
         return (
-            instance.get<UserProfileResponseType>(`user/${userId}`)
+            instance.get<UserProfileResponseType>(`profile/${userId}`)
         )
     }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {UserResponseType} from "../../types/types";
 import avatar from './../../assets/images/avatar_male_person.png';
 import {Pagination} from "../../features/pagination/Pagination";
+import {NavLink} from "react-router-dom";
 
 type PropsType = {
     users: UserResponseType[];
@@ -24,10 +25,12 @@ export const Users = (props: PropsType) => {
                         </div>
                         <span>{user.id}</span>
                         <div>
-                            <img style={{width: '64px', height: '64px'}}
-                                 src={user.photos.small ? user.photos.large : avatar}
-                                 alt={'profile_image'}
-                            />
+                            <NavLink to={`/profile/${user.id}`}>
+                                <img style={{width: '64px', height: '64px'}}
+                                     src={user.photos.small ? user.photos.large : avatar}
+                                     alt={'profile_image'}
+                                />
+                            </NavLink>
                         </div>
                         <div>
                             {user.followed

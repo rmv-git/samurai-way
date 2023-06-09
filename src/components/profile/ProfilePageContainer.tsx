@@ -9,25 +9,20 @@ import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {Posts} from "./posts/Posts";
 
-export class ProfilePageClassComponent extends React.Component<any, any> {
+export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
     componentDidMount() {
-
+        // const userID = 18933;
+        const userID = 2;
+        this.props.getUserProfileThunk(userID)
     }
 
     render() {
         return (
-            <div className={classes.content}>
-                <ProfileDescription/>
-                <Posts posts={this.props.arrayPosts}/>
-                <div>
-                <textarea value={this.props.newPostText}
-                          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => this.props.updatePost(event.currentTarget.value)}/>
-                    <button onClick={() => this.props.addPost()}>Add</button>
-                </div>
-            </div>
+            <ProfilePage {...this.props} profile={this.props.profile}/>
         )
     }
 }
+
 type MapStateToPropsType = {
     arrayPosts: PostType[];
     newPostText: string;
@@ -62,8 +57,8 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 // }
 
 export const ConnectComponent = connect(mapStateToProps, {
-    addPostAC,
-    newPostTextAC,
+    addPost: addPostAC,
+    updatePost: newPostTextAC,
     getUserProfileThunk,
 });
 

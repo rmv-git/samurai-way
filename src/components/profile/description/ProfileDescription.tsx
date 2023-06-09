@@ -1,14 +1,28 @@
 import React from 'react';
 import robot from './../../../assets/images/robot.png';
+import {UserProfileResponseType} from "../../../types/types";
 
-export const ProfileDescription = () => {
+type PropsType = {
+    profile: UserProfileResponseType;
+}
+export const ProfileDescription = (props: PropsType) => {
     return (
         <div>
             <div>
-                <img src={robot} style={{width: '64px', height: '64px'}} alt={'robot_avatar_image'}/>
+                {
+                    !props.profile.photos
+                        ? <img src={robot} style={{width: '64px', height: '64px'}} alt={'robot_avatar_image'}/>
+                        : <img src={props.profile.photos.small} alt={'small profile image'}/>
+
+                }
+                <div>
+                    Contacts:
+                    <div>{props.profile.contacts.facebook}</div>
+                    <div>{props.profile.contacts.twitter}</div>
+                    <div>{props.profile.contacts.github}</div>
+                </div>
+                {/*<img src={robot} style={{width: '64px', height: '64px'}} alt={'robot_avatar_image'}/>*/}
             </div>
-            <div>Nickname:</div>
-            <div>Status:</div>
         </div>
     );
 };
