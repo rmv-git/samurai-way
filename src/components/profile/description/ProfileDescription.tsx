@@ -12,7 +12,7 @@ export const ProfileDescription = (props: PropsType) => {
                 {
                     !props.profile.photos
                         ? <img src={robot} style={{width: '64px', height: '64px'}} alt={'robot_avatar_image'}/>
-                        : <img src={props.profile.photos.small} alt={'small profile image'}/>
+                        : <img src={props.profile.photos.small} alt={'small_profile_image'}/>
 
                 }
                 <div>

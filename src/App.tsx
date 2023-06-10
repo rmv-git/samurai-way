@@ -16,7 +16,7 @@ export const App = () => {
             <NavbarContainer/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
-                <Route exact path={'/profile'}>
+                <Route exact path={'/profile/:userId?'}>
                     <ProfilePageContainer/>
                 </Route>
                 <Route exact path={'/messages'}>

@@ -1,6 +1,6 @@
 import {PostType, UserProfileResponseType} from "../types/types";
 import {Dispatch} from "redux";
-import { API } from "../api/API";
+import {API} from "../api/API";
 
 type InitialStateType = {
     newPostText: string;
@@ -14,7 +14,26 @@ const initialState: InitialStateType = {
         {id: 2, text: 'Lorem ipsum dolor sit amet.', likesCount: 7},
         {id: 3, text: 'Lorem ipsum dolor sit amet.', likesCount: 99},
     ],
-    profile: {} as UserProfileResponseType,
+    profile: {
+        userId: null,
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        fullName: '',
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
+        },
+        photos: {
+            small: '',
+            large: '',
+        }
+    },
 }
 export const profileReducer = (state = initialState, action: ProfileReducerActions): InitialStateType => {
     switch (action.type) {
@@ -28,9 +47,7 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
         case 'NEW_POST_TEXT':
             return {...state, newPostText: action.newPostText}
         case 'GET_USER_PROFILE':
-            return {
-                ...state, profile: action.profile
-            }
+            return {...state, profile: action.profile}
         default:
             return state;
     }

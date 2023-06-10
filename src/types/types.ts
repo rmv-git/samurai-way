@@ -78,7 +78,7 @@ type UserContactsResponseType = {
     mainLink: string;
 }
 export type UserProfileResponseType = {
-    userId: number;
+    userId: number | null;
     lookingForAJob: boolean;
     lookingForAJobDescription: string;
     fullName: string;

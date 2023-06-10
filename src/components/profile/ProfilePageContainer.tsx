@@ -8,17 +8,32 @@ import {addPostAC, getUserProfileAC, getUserProfileThunk, newPostTextAC} from ".
 import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {Posts} from "./posts/Posts";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
-    componentDidMount() {
-        // const userID = 18933;
-        const userID = 2;
-        this.props.getUserProfileThunk(userID)
+
+    refreshProfile() {
+        let id = Number(this.props.match.params.userId);
+        if (!id) {
+            return id = 18933;
+        }
+        this.props.getUserProfileThunk(id);
     }
+
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
 
     render() {
         return (
-            <ProfilePage {...this.props} profile={this.props.profile}/>
+            <ProfilePage {...this.props}/>
         )
     }
 }
@@ -62,6 +77,10 @@ export const ConnectComponent = connect(mapStateToProps, {
     getUserProfileThunk,
 });
 
-export type ProfilePageContainerType = ConnectedProps<typeof ConnectComponent>;
+type PathParamType = {
+    userId: string,
+}
 
-export const ProfilePageContainer = ConnectComponent(ProfilePageClassComponent);
+export type ProfilePageContainerType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
+const withRouterComponent = withRouter(ProfilePageClassComponent);
+export const ProfilePageContainer = ConnectComponent(withRouterComponent);
