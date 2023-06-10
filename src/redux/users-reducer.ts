@@ -1,6 +1,7 @@
 import {UserResponseType} from "../types/types";
 import {Dispatch} from "redux";
 import {API} from "../api/API";
+import {isFetchingAC} from "./app-reducer";
 
 type InitialStateType = {
     items: UserResponseType[];
@@ -96,8 +97,12 @@ export const selectPageAC = (page: number): SelectPageActionType => {
 }
 
 export const getUsersThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(isFetchingAC(true));
     API.getUsers(currentPage, pageSize).then(
-        res => dispatch(getUsersAC(res.items, res.totalCount))
+        res => {
+            dispatch(getUsersAC(res.items, res.totalCount))
+            dispatch(isFetchingAC(false));
+        }
     )
 }
 
