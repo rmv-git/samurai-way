@@ -9,6 +9,7 @@ import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {Posts} from "./posts/Posts";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Preloader} from "../../features/preloader/Preloader";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
 
@@ -33,7 +34,9 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
 
     render() {
         return (
-            <ProfilePage {...this.props}/>
+            this.props.isFetching
+                ? <Preloader/>
+                : <ProfilePage {...this.props}/>
         )
     }
 }
@@ -42,6 +45,7 @@ type MapStateToPropsType = {
     arrayPosts: PostType[];
     newPostText: string;
     profile: UserProfileResponseType;
+    isFetching: boolean;
 }
 // type MapDispatchToPropsType = {
 //     addPost: () => void;
@@ -55,6 +59,7 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         newPostText: state.profileReducer.newPostText,
         arrayPosts: state.profileReducer.arrayPosts,
         profile: state.profileReducer.profile,
+        isFetching: state.appReducer.isFetching,
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

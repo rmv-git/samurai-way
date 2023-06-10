@@ -1,6 +1,7 @@
 import {PostType, UserProfileResponseType} from "../types/types";
 import {Dispatch} from "redux";
 import {API} from "../api/API";
+import {isFetchingAC} from "./app-reducer";
 
 type InitialStateType = {
     newPostText: string;
@@ -90,7 +91,11 @@ export const getUserProfileAC = (profile: UserProfileResponseType): GetUserProfi
 }
 
 export const getUserProfileThunk = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(isFetchingAC(true));
     API.getUserProfile(userId).then(
-        res => dispatch(getUserProfileAC(res.data))
+        res => {
+            dispatch(getUserProfileAC(res.data))
+            dispatch(isFetchingAC(false));
+        }
     )
 }
