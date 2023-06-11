@@ -85,3 +85,13 @@ export type UserProfileResponseType = {
     contacts: UserContactsResponseType;
     photos: PhotosResponseType;
 }
+
+export type AuthResponseType = {
+    resultCode: number,
+    messages: Array<string>,
+    data: {
+        id: number,
+        email: string,
+        login: string,
+    }
+}

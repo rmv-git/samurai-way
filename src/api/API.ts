@@ -1,5 +1,11 @@
 import axios from "axios";
-import {ResponseFollow, ResponseType, UserProfileResponseType, UserResponseType} from "../types/types";
+import {
+    AuthResponseType,
+    ResponseFollow,
+    ResponseType,
+    UserProfileResponseType,
+    UserResponseType
+} from "../types/types";
 
 const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
@@ -30,6 +36,11 @@ export const API = {
     getUserProfile(userId: number) {
         return (
             instance.get<UserProfileResponseType>(`profile/${userId}`)
+        )
+    },
+    auth() {
+        return(
+            instance.get<AuthResponseType>(`auth/me`)
         )
     }
 }
