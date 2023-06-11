@@ -8,11 +8,12 @@ import {ProfilePageContainer} from "./components/profile/ProfilePageContainer";
 import {DialogsPageContainer} from "./components/dialogs/DialogsPageContainer";
 import {NavbarContainer} from "./components/navbar/NavbarContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
+import {HeaderContainer} from "./components/header/HeaderContainerComponent";
 
 export const App = () => {
     return (
         <div className={"app-wrapper"}>
-            <HeaderComponent/>
+            <HeaderContainer/>
             <NavbarContainer/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
