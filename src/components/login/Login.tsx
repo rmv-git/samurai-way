@@ -1,20 +1,40 @@
 import React from 'react';
+import {Field, Form, Formik} from "formik";
+
+interface MyFormValues {
+    email: string | null;
+    password: string | null;
+    rememberMe: boolean | null;
+}
 
 export const Login = () => {
+
+    const initialValues: MyFormValues = {email: null, rememberMe: null, password: null};
+
     return (
-        <div>
-            <h3>Login</h3>
-            <div>
+        <Formik
+            initialValues={initialValues}
+            onSubmit={(values, actions) => {
+                console.log({values, actions});
+                alert(JSON.stringify(values, null, 2));
+                actions.setSubmitting(false);
+            }}
+        >
+            <Form>
                 <div>
-                    Email: <input type={'email'}/>
+                    <label htmlFor="Email">Email</label>
+                    <Field id="email" type={'email'} name="email" placeholder="Email"/>
                 </div>
                 <div>
-                    Password: <input type={'password'}/>
+                    <label htmlFor="Password">Password</label>
+                    <Field id="password" type={'password'} name="password" placeholder="Password"/>
                 </div>
                 <div>
-                    RememberMe: <input type={'checkbox'}/>
+                    <label htmlFor="RemeberMe">RemeberMe</label>
+                    <Field id="checkbox" type={'checkbox'} name="rememberMe"/>
                 </div>
-            </div>
-        </div>
+                <button type="submit">Submit</button>
+            </Form>
+        </Formik>
     );
 };
