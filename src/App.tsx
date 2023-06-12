@@ -9,6 +9,7 @@ import {DialogsPageContainer} from "./components/dialogs/DialogsPageContainer";
 import {NavbarContainer} from "./components/navbar/NavbarContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
 import {HeaderContainer} from "./components/header/HeaderContainerComponent";
+import {DialogsPage} from "./components/dialogs/DialogsPage";
 
 export const App = () => {
     return (
