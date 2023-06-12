@@ -4,8 +4,13 @@ import {MessageType, UserType} from "../../types/types";
 import {Dialog} from "./dialog/Dialog";
 import {Message} from './message/Message';
 import {DialogsPageContainerType} from "./DialogsPageContainer";
+import {Redirect} from "react-router-dom";
 
 export const DialogsPage = (props: DialogsPageContainerType) => {
+
+    if (!props.isAuth) {
+        return <Redirect to={'/login'}/>
+    }
 
     return (
         <div className={classes.container}>

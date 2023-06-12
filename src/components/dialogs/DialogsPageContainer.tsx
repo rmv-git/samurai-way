@@ -10,6 +10,7 @@ type MapStateToPropsType = {
     arrayUsers: UserType[];
     arrayMessages: MessageType[];
     newMessageText: string,
+    isAuth: boolean,
 }
 type MapDispatchToPropsType = {
     updateMessage: (value: string) => void;
@@ -22,6 +23,7 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         newMessageText: state.dialogsReducer.newMessageText,
         arrayUsers: state.dialogsReducer.arrayUsers,
         arrayMessages: state.dialogsReducer.arrayMessages,
+        isAuth: state.authReducer.isAuth,
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

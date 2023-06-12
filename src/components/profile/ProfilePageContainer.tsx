@@ -8,7 +8,7 @@ import {addPostAC, getUserProfileAC, getUserProfileThunk, newPostTextAC} from ".
 import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {Posts} from "./posts/Posts";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
@@ -31,8 +31,12 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
         }
     }
 
-
     render() {
+
+        if (!this.props.isAuth) {
+            return <Redirect to={'/login'}/>
+        }
+
         return (
             this.props.isFetching
                 ? <Preloader/>
@@ -46,6 +50,7 @@ type MapStateToPropsType = {
     newPostText: string;
     profile: UserProfileResponseType;
     isFetching: boolean;
+    isAuth: boolean;
 }
 // type MapDispatchToPropsType = {
 //     addPost: () => void;
@@ -60,6 +65,7 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         arrayPosts: state.profileReducer.arrayPosts,
         profile: state.profileReducer.profile,
         isFetching: state.appReducer.isFetching,
+        isAuth: state.authReducer.isAuth,
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

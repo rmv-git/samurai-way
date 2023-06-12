@@ -23,9 +23,11 @@ export const App = () => {
                 <Route exact path={'/messages'}>
                     <DialogsPageContainer/>
                 </Route>
-                <Login/>
+                <Route exact path={'/login'}>
+                    <Login/>
+                </Route>
                 <Route exact path={'/users'}>
-                    <UsersContainer />
+                    <UsersContainer/>
                 </Route>
             </div>
         </div>
