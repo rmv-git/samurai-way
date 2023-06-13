@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, Form, Formik} from "formik";
+import {Field, Form, FormikProps} from "formik";
 
 interface MyFormValues {
     email: string | null;
@@ -7,34 +7,33 @@ interface MyFormValues {
     rememberMe: boolean | null;
 }
 
-export const Login = () => {
+// Shape of form values
+interface FormValues {
+    email: string;
+    password: string;
+}
 
-    const initialValues: MyFormValues = {email: null, rememberMe: null, password: null};
+interface OtherProps {
+    message: string;
+}
 
+// Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
+export const Login = (props: OtherProps & FormikProps<FormValues>) => {
+    const { touched, errors, isSubmitting, message } = props;
     return (
-        <Formik
-            initialValues={initialValues}
-            onSubmit={(values, actions) => {
-                console.log({values, actions});
-                alert(JSON.stringify(values, null, 2));
-                actions.setSubmitting(false);
-            }}
-        >
-            <Form>
-                <div>
-                    <label htmlFor="Email">Email</label>
-                    <Field id="email" type={'email'} name="email" placeholder="Email"/>
-                </div>
-                <div>
-                    <label htmlFor="Password">Password</label>
-                    <Field id="password" type={'password'} name="password" placeholder="Password"/>
-                </div>
-                <div>
-                    <label htmlFor="RemeberMe">RemeberMe</label>
-                    <Field id="checkbox" type={'checkbox'} name="rememberMe"/>
-                </div>
-                <button type="submit">Submit</button>
-            </Form>
-        </Formik>
+        <Form>
+            <h1>{message}</h1>
+            <Field type="email" name="email" />
+            {touched.email && errors.email && <div>{errors.email}</div>}
+
+            <Field type="password" name="password" />
+            {touched.password && errors.password && <div>{errors.password}</div>}
+
+            <Field type="checkbox" name="checkbox" />
+
+            <button type="submit" disabled={isSubmitting}>
+                Submit
+            </button>
+        </Form>
     );
 };

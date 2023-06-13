@@ -10,6 +10,7 @@ import {NavbarContainer} from "./components/navbar/NavbarContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
 import {HeaderContainer} from "./components/header/HeaderContainerComponent";
 import {DialogsPage} from "./components/dialogs/DialogsPage";
+import {LoginContainer} from "./components/login/LoginContainer";
 
 export const App = () => {
     return (
@@ -25,7 +26,7 @@ export const App = () => {
                     <DialogsPageContainer/>
                 </Route>
                 <Route exact path={'/login'}>
-                    <Login/>
+                    <LoginContainer/>
                 </Route>
                 <Route exact path={'/users'}>
                     <UsersContainer/>

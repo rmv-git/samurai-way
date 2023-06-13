@@ -74,7 +74,7 @@ export const getAuthDataAC = (id: number | null, login: string | null, email: st
     }
 }
 
-export const LoginAC = (email: string, password: string, rememberMe: boolean): LoginActionType => {
+export const loginAC = (email: string, password: string, rememberMe: boolean): LoginActionType => {
     return {
         type: 'LOGIN',
         email,
@@ -83,11 +83,11 @@ export const LoginAC = (email: string, password: string, rememberMe: boolean): L
     }
 }
 
-export const LoginThunk = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const loginThunk = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
     API.login(email, password, rememberMe).then(
         res => {
             if (res.data.resultCode === 0) {
-                dispatch(LoginAC(email, password, rememberMe))
+                dispatch(loginAC(email, password, rememberMe))
             }
         }
     )
