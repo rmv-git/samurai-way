@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-    AuthResponseType,
+    AuthResponseType, LoginResponseType,
     ResponseFollow,
     ResponseType,
     UserProfileResponseType,
@@ -42,5 +42,8 @@ export const API = {
         return(
             instance.get<AuthResponseType>(`auth/me`)
         )
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<LoginResponseType>(`auth/login`, {email, password, rememberMe})
     }
 }

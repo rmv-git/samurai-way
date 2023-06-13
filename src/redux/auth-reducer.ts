@@ -1,8 +1,13 @@
+import {Dispatch} from "redux";
+import {API} from "../api/API";
+
 type InitialStateType = {
     isAuth: boolean;
     id: number | null;
     login: string | null;
     email: string | null;
+    password: string | null;
+    rememberMe: boolean;
 }
 
 const initialState: InitialStateType = {
@@ -10,6 +15,8 @@ const initialState: InitialStateType = {
     id: null,
     login: null,
     email: null,
+    password: null,
+    rememberMe: true,
 }
 export const authReducer = (state = initialState, action: AuthReducerActionType): InitialStateType => {
     switch (action.type) {
@@ -21,12 +28,19 @@ export const authReducer = (state = initialState, action: AuthReducerActionType)
             return {
                 ...state, id: action.id, email: action.email, login: action.login
             }
+        case 'LOGIN':
+            return {
+                ...state,
+                email: action.email,
+                password: action.password,
+                rememberMe: action.rememberMe
+            }
         default:
             return state;
     }
 }
 
-type AuthReducerActionType = AuthActionType | GetAuthDataActionType;
+type AuthReducerActionType = AuthActionType | GetAuthDataActionType | LoginActionType;
 
 type AuthActionType = {
     type: 'IS_AUTH';
@@ -37,6 +51,12 @@ type GetAuthDataActionType = {
     id: number | null;
     login: string | null;
     email: string | null;
+}
+type LoginActionType = {
+    type: 'LOGIN';
+    email: string | null;
+    password: string | null;
+    rememberMe: boolean;
 }
 
 export const authAC = (isAuth: boolean): AuthActionType => {
@@ -52,4 +72,23 @@ export const getAuthDataAC = (id: number | null, login: string | null, email: st
         login,
         email
     }
+}
+
+export const LoginAC = (email: string, password: string, rememberMe: boolean): LoginActionType => {
+    return {
+        type: 'LOGIN',
+        email,
+        password,
+        rememberMe,
+    }
+}
+
+export const LoginThunk = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+    API.login(email, password, rememberMe).then(
+        res => {
+            if (res.data.resultCode === 0) {
+                dispatch(LoginAC(email, password, rememberMe))
+            }
+        }
+    )
 }

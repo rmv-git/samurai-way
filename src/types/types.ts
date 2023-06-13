@@ -95,3 +95,11 @@ export type AuthResponseType = {
         login: string,
     }
 }
+
+export type LoginResponseType = {
+    resultCode: number,
+    messages: string[],
+    data: {
+        userId: number
+    }
+}
