@@ -1,39 +1,56 @@
-import React from 'react';
-import {Field, Form, FormikProps} from "formik";
+import React from "react";
+import {LoginContainerPropsType} from "./LoginContainer";
+import {Field, Form} from "react-final-form";
 
-interface MyFormValues {
-    email: string | null;
-    password: string | null;
-    rememberMe: boolean | null;
-}
+export const Login = (props: LoginContainerPropsType) => {
 
-// Shape of form values
-interface FormValues {
-    email: string;
-    password: string;
-}
+    const required = (value: string) => (value ? undefined : "Required");
 
-interface OtherProps {
-    message: string;
-}
 
-// Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
-export const Login = (props: OtherProps & FormikProps<FormValues>) => {
-    const { touched, errors, isSubmitting, message } = props;
+    const login = (values: { email: string, password: string, rememberMe: boolean }) => {
+        props.loginThunk(values.email, values.password, values.rememberMe)
+    }
+
     return (
-        <Form>
-            <h1>{message}</h1>
-            <Field type="email" name="email" />
-            {touched.email && errors.email && <div>{errors.email}</div>}
-
-            <Field type="password" name="password" />
-            {touched.password && errors.password && <div>{errors.password}</div>}
-
-            <Field type="checkbox" name="checkbox" />
-
-            <button type="submit" disabled={isSubmitting}>
-                Submit
-            </button>
-        </Form>
-    );
-};
+        <div>
+            <Form
+                onSubmit={login}
+                render={({handleSubmit, submitting, values}) => (
+                    <form onSubmit={handleSubmit}>
+                        <Field name="email" validate={required}>
+                            {({input, meta}) => (
+                                <div>
+                                    <label>Email</label>
+                                    <input {...input} type="text" placeholder="Email"/>
+                                    {meta.error && meta.touched && <span>{meta.error}</span>}
+                                </div>
+                            )}
+                        </Field>
+                        <Field name="password" validate={required}>
+                            {({input, meta}) => (
+                                <div>
+                                    <label>Password</label>
+                                    <input {...input} type="password" placeholder="Password"/>
+                                    {meta.error && meta.touched && <span>{meta.error}</span>}
+                                </div>
+                            )}
+                        </Field>
+                        <Field name={"rememberMe"} type={"checkbox"} validate={required}>
+                            {({input, meta}) => (
+                                <div>
+                                    <label>Remember Me</label>
+                                    <input {...input} type={"checkbox"} defaultChecked={false}/>
+                                </div>
+                            )}
+                        </Field>
+                        <div className="buttons">
+                            <button type="submit" disabled={submitting}>
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                )}
+            />
+        </div>
+    )
+}

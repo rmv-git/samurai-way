@@ -4,13 +4,13 @@ import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {loginThunk} from "../../redux/auth-reducer";
 
-export class LoginClassComponent extends React.Component<any, any> {
+export class LoginClassComponent extends React.Component<LoginContainerPropsType, any> {
     componentDidMount() {
     }
 
     render() {
         return (
-            undefined
+            <Login {...this.props} />
         );
     }
 }
