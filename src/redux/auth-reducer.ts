@@ -92,3 +92,13 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean)
         }
     )
 }
+
+export const logoutThunk = () => (dispatch: Dispatch) => {
+    API.logout().then(
+        res => {
+            if (res.data.resultCode === 0) {
+                dispatch(loginAC('', '', false))
+            }
+        }
+    )
+}

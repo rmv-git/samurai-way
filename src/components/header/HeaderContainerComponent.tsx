@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {authAC, getAuthDataAC} from "../../redux/auth-reducer";
+import {authAC, getAuthDataAC, logoutThunk} from "../../redux/auth-reducer";
 import {HeaderComponent} from "./Header";
 import {API} from "../../api/API";
 
@@ -19,7 +19,7 @@ export class HeaderClassComponent extends React.Component<HeaderContainerPropsTy
     }
 
     render() {
-        return <HeaderComponent {...this.props} email={this.props.email}/>;
+        return <HeaderComponent {...this.props}/>;
     }
 };
 
@@ -40,10 +40,11 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 }
 
 
-export type HeaderContainerPropsType = ConnectedProps<typeof ConnectComponent>;
+export type HeaderContainerPropsType = ConnectedProps<typeof ConnectComponent> & MapStateToPropsType;
 
 const ConnectComponent = connect(mapStateToProps, {
     authAC,
     getAuthDataAC,
+    logoutThunk,
 });
 export const HeaderContainer = ConnectComponent(HeaderClassComponent);

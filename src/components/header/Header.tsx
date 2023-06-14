@@ -1,22 +1,19 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {HeaderContainerPropsType} from "./HeaderContainerComponent";
 import classes from "./Header.module.css";
+import {HeaderContainerPropsType} from "./HeaderContainerComponent";
 
-type PropsType = {
-    isAuth: boolean;
-    id: number | null;
-    email: string | null;
-    login: string | null;
-}
-export const HeaderComponent = (props: PropsType) => {
+export const HeaderComponent = (props: HeaderContainerPropsType) => {
 
     return (
         <header className={classes.header}>
             Header
             <div style={{display: 'flex', flexFlow: 'row', color: 'white'}}>
                 {props.isAuth
-                    ? <span>{props.email}</span>
+                    ? <div>
+                        <span>{props.email}</span>
+                        <button onClick={() => props.logoutThunk()}>Logout</button>
+                    </div>
                     : <NavLink to={'/login'} style={{color: 'white'}}>
                         Login
                     </NavLink>

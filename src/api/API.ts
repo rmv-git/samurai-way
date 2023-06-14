@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-    AuthResponseType, LoginResponseType,
+    AuthResponseType,
     ResponseFollow,
     ResponseType,
     UserProfileResponseType,
@@ -39,11 +39,14 @@ export const API = {
         )
     },
     auth() {
-        return(
-            instance.get<AuthResponseType>(`auth/me`)
+        return (
+            instance.get<AuthResponseType<{ id: number, email: string, login: string, }>>(`auth/me`)
         )
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<LoginResponseType>(`auth/login`, {email, password, rememberMe})
+        return instance.post<AuthResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete<AuthResponseType>(`auth/login`)
     }
 }

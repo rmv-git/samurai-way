@@ -86,20 +86,18 @@ export type UserProfileResponseType = {
     photos: PhotosResponseType;
 }
 
-export type AuthResponseType = {
-    resultCode: number,
-    messages: Array<string>,
-    data: {
-        id: number,
-        email: string,
-        login: string,
-    }
-}
+// export type AuthResponseType = {
+//     resultCode: number,
+//     messages: Array<string>,
+//     data: {
+//         id: number,
+//         email: string,
+//         login: string,
+//     }
+// }
 
-export type LoginResponseType = {
+export type AuthResponseType<T = {}> = {
     resultCode: number,
     messages: string[],
-    data: {
-        userId: number
-    }
+    data: T
 }
