@@ -1,12 +1,13 @@
 import {Dispatch} from "redux";
 import {API} from "../api/API";
+import {Nullable} from "../types/types";
 
 type InitialStateType = {
     isAuth: boolean;
-    id: number | null;
-    login: string | null;
-    email: string | null;
-    password: string | null;
+    id: Nullable<number>;
+    login: Nullable<string>;
+    email: Nullable<string>;
+    password: Nullable<string>;
     rememberMe: boolean;
 }
 
@@ -16,7 +17,7 @@ const initialState: InitialStateType = {
     login: null,
     email: null,
     password: null,
-    rememberMe: true,
+    rememberMe: false,
 }
 export const authReducer = (state = initialState, action: AuthReducerActionType): InitialStateType => {
     switch (action.type) {
@@ -48,14 +49,14 @@ type AuthActionType = {
 }
 type GetAuthDataActionType = {
     type: 'GET_AUTH_DATA';
-    id: number | null;
-    login: string | null;
-    email: string | null;
+    id: Nullable<number>;
+    login: Nullable<string>;
+    email: Nullable<string>;
 }
 type LoginActionType = {
     type: 'LOGIN';
-    email: string | null;
-    password: string | null;
+    email: Nullable<string>;
+    password: Nullable<string>;
     rememberMe: boolean;
 }
 
@@ -65,7 +66,7 @@ export const authAC = (isAuth: boolean): AuthActionType => {
         isAuth,
     }
 }
-export const getAuthDataAC = (id: number | null, login: string | null, email: string | null): GetAuthDataActionType => {
+export const getAuthDataAC = (id: Nullable<number>, login: Nullable<string>, email: Nullable<string>): GetAuthDataActionType => {
     return {
         type: 'GET_AUTH_DATA',
         id,
@@ -74,7 +75,7 @@ export const getAuthDataAC = (id: number | null, login: string | null, email: st
     }
 }
 
-export const loginAC = (email: string, password: string, rememberMe: boolean): LoginActionType => {
+export const loginAC = (email: Nullable<string>, password: Nullable<string>, rememberMe: boolean): LoginActionType => {
     return {
         type: 'LOGIN',
         email,
@@ -83,7 +84,7 @@ export const loginAC = (email: string, password: string, rememberMe: boolean): L
     }
 }
 
-export const loginThunk = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const loginThunk = (email: Nullable<string>, password: Nullable<string>, rememberMe: boolean) => (dispatch: Dispatch) => {
     API.login(email, password, rememberMe).then(
         res => {
             if (res.data.resultCode === 0) {
@@ -98,6 +99,17 @@ export const logoutThunk = () => (dispatch: Dispatch) => {
         res => {
             if (res.data.resultCode === 0) {
                 dispatch(loginAC('', '', false))
+            }
+        }
+    )
+}
+
+export const isAuthThunk = (id: Nullable<number>, login: Nullable<string>, email: Nullable<string>) => (dispatch: Dispatch) => {
+    API.auth().then(
+        res => {
+            if (res.data.resultCode === 0 ) {
+                dispatch(getAuthDataAC(id, login, email));
+                dispatch(authAC(true));
             }
         }
     )

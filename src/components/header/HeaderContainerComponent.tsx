@@ -1,33 +1,34 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {authAC, getAuthDataAC, logoutThunk} from "../../redux/auth-reducer";
+import {authAC, getAuthDataAC, isAuthThunk, logoutThunk} from "../../redux/auth-reducer";
 import {HeaderComponent} from "./Header";
-import {API} from "../../api/API";
+import {Nullable} from "../../types/types";
 
 export class HeaderClassComponent extends React.Component<HeaderContainerPropsType, any> {
 
     componentDidMount() {
-        API.auth().then(
-            res => {
-                if (res.data.resultCode === 0) {
-                    this.props.getAuthDataAC(res.data.data.id, res.data.data.login, res.data.data.email);
-                    this.props.authAC(true);
-                }
-            }
-        )
+        this.props.isAuthThunk(this.props.id, this.props.login, this.props.email);
+    }
+
+    logOut = () => {
+        this.props.logoutThunk();
     }
 
     render() {
-        return <HeaderComponent {...this.props}/>;
+        return <HeaderComponent
+            email={this.props.email}
+            isAuth={this.props.isAuth}
+            logOut={this.logOut}
+        />;
     }
-};
+}
 
 type MapStateToPropsType = {
-    isAuth: boolean;
-    id: number | null;
-    login: string | null;
-    email: string | null;
+    isAuth: boolean,
+    id: Nullable<number>,
+    login: Nullable<string>,
+    email: Nullable<string>,
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
@@ -46,5 +47,6 @@ const ConnectComponent = connect(mapStateToProps, {
     authAC,
     getAuthDataAC,
     logoutThunk,
+    isAuthThunk,
 });
 export const HeaderContainer = ConnectComponent(HeaderClassComponent);

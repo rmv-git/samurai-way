@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-    GetUsersResponseType,
+    GetUsersResponseType, Nullable,
     ResponseType,
     UserProfileResponseType,
 } from "../types/types";
@@ -38,10 +38,10 @@ export const API = {
     },
     auth() {
         return (
-            instance.get<ResponseType<{ id: number, email: string, login: string, }>>(`auth/me`)
+            instance.get<ResponseType<{ id: Nullable<number>, email: Nullable<string>, login: Nullable<string>, }>>(`auth/me`)
         )
     },
-    login(email: string, password: string, rememberMe: boolean) {
+    login(email: Nullable<string>, password: Nullable<string>, rememberMe: boolean) {
         return instance.post<ResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
