@@ -14,89 +14,52 @@ export type MessageType = {
     text: string;
 }
 
-export type ProfilePageType = {
-    arrayPosts: Array<PostType>;
-    newPostText: string;
-}
 export type DialogsPageType = {
-    arrayMessages: Array<MessageType>;
-    arrayUsers: Array<UserType>;
+    arrayMessages: MessageType[];
+    arrayUsers: UserType[];
     newMessageText: string;
 }
 export type SideBarType = {
     arrayUsers: Array<UserType>;
 }
-export type StateType = {
-    profilePage: ProfilePageType;
-    dialogsPage: DialogsPageType;
-    sidebar: SideBarType;
-}
 
-export type StoreType = {
-    _state: StateType;
-    _renderThree: (_state: StateType) => void;
-    getState: () => StateType;
-    subscribe: (observer: () => void) => void;
-    dispatch: (action: any) => void;
-}
+export type Nullable<T> = T | null;
 
 export type PhotosResponseType = {
     small: string | undefined,
     large: string | undefined,
 }
 export type UserResponseType = {
-    name: string,
+    name: Nullable<string>,
     id: number,
     photos: PhotosResponseType,
-    status: string | null,
+    status: Nullable<string>,
     followed: boolean
 }
-export type UsersResponseType = {
+export type GetUsersResponseType = {
     items: UserResponseType[],
     totalCount: number,
     error: string | null,
 }
-export type ResponseType<T = {}> = {
-    totalCount: number,
-    error: string | null,
-    items: T
-}
-
-export type ResponseFollow = {
-    resultCode: number,
-    messages: Array<string>,
-    data: {},
-}
-type UserContactsResponseType = {
-    github: string;
-    vk: string;
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    website: string;
-    youtube: string;
-    mainLink: string;
+export type UserContactsResponseType = {
+    github: Nullable<string>;
+    vk: Nullable<string>;
+    facebook: Nullable<string>;
+    instagram: Nullable<string>;
+    twitter: Nullable<string>;
+    website: Nullable<string>;
+    youtube: Nullable<string>;
+    mainLink: Nullable<string>;
 }
 export type UserProfileResponseType = {
-    userId: number | null;
+    userId: Nullable<number>;
     lookingForAJob: boolean;
-    lookingForAJobDescription: string;
-    fullName: string;
+    lookingForAJobDescription: Nullable<string>;
+    fullName: Nullable<string>;
     contacts: UserContactsResponseType;
     photos: PhotosResponseType;
 }
-
-// export type AuthResponseType = {
-//     resultCode: number,
-//     messages: Array<string>,
-//     data: {
-//         id: number,
-//         email: string,
-//         login: string,
-//     }
-// }
-
-export type AuthResponseType<T = {}> = {
+export type ResponseType<T = {}> = {
     resultCode: number,
     messages: string[],
     data: T

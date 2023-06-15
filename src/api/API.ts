@@ -1,10 +1,8 @@
 import axios from "axios";
 import {
-    AuthResponseType,
-    ResponseFollow,
+    GetUsersResponseType,
     ResponseType,
     UserProfileResponseType,
-    UserResponseType
 } from "../types/types";
 
 const instance = axios.create({
@@ -18,19 +16,19 @@ const instance = axios.create({
 export const API = {
     getUsers(currentPage: number, pageSize: number) {
         return (
-            instance.get<ResponseType<UserResponseType[]>>(`users?page=${currentPage}&count=${pageSize}/`).then(
+            instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}/`).then(
                 res => res.data
             )
         )
     },
     follow(userId: number) {
         return (
-            instance.post(`follow/${userId}`)
+            instance.post<ResponseType>(`follow/${userId}`)
         )
     },
     unfollow(userId: number) {
         return (
-            instance.delete<ResponseFollow>(`follow/${userId}`)
+            instance.delete<ResponseType>(`follow/${userId}`)
         )
     },
     getUserProfile(userId: number) {
@@ -40,13 +38,13 @@ export const API = {
     },
     auth() {
         return (
-            instance.get<AuthResponseType<{ id: number, email: string, login: string, }>>(`auth/me`)
+            instance.get<ResponseType<{ id: number, email: string, login: string, }>>(`auth/me`)
         )
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<AuthResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
+        return instance.post<ResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
     },
     logout() {
-        return instance.delete<AuthResponseType>(`auth/login`)
+        return instance.delete<ResponseType>(`auth/login`)
     }
 }
