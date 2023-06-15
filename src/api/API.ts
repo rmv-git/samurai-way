@@ -21,12 +21,12 @@ export const API = {
             )
         )
     },
-    follow(userId: number) {
+    follow(userId: Nullable<number>) {
         return (
             instance.post<ResponseType>(`follow/${userId}`)
         )
     },
-    unfollow(userId: number) {
+    unfollow(userId: Nullable<number>) {
         return (
             instance.delete<ResponseType>(`follow/${userId}`)
         )

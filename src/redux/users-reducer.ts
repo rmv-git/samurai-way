@@ -1,4 +1,4 @@
-import {UserResponseType} from "../types/types";
+import {Nullable, UserResponseType} from "../types/types";
 import {Dispatch} from "redux";
 import {API} from "../api/API";
 import {isFetchingAC} from "./app-reducer";
@@ -6,7 +6,7 @@ import {isFetchingAC} from "./app-reducer";
 type InitialStateType = {
     items: UserResponseType[];
     totalCount: number;
-    error: string | null;
+    error: Nullable<string>;
     currentPage: number,
     pageSize: number,
 }
@@ -50,74 +50,63 @@ type UsersReducerActionsType = GetUsersActionType
     | UnfollowUserActionType
     | SelectPageActionType;
 
-type GetUsersActionType = {
-    type: 'GET_USERS',
-    items: UserResponseType[],
-    totalCount: number,
-}
-type FollowUserActionType = {
-    type: 'FOLLOW',
-    userId: number,
-}
-type UnfollowUserActionType = {
-    type: 'UNFOLLOW',
-    userId: number,
-}
-type SelectPageActionType = {
-    type: 'SELECT_PAGE',
-    page: number,
-}
+type GetUsersActionType = ReturnType<typeof getUsersAC>;
+type FollowUserActionType = ReturnType<typeof followUserAC>;
+type UnfollowUserActionType = ReturnType<typeof unFollowUserAC>;
+type SelectPageActionType = ReturnType<typeof selectPageAC>;
 
-export const getUsersAC = (items: UserResponseType[], totalCount: number): GetUsersActionType => {
+export const getUsersAC = (items: UserResponseType[], totalCount: number) => {
     return {
         type: 'GET_USERS',
         items,
         totalCount,
-    }
+    } as const
 }
 
-export const followUserAC = (userId: number): FollowUserActionType => {
+export const followUserAC = (userId: Nullable<number>) => {
     return {
         type: 'FOLLOW',
         userId,
-    }
+    } as const
 }
-export const unFollowUserAC = (userId: number): UnfollowUserActionType => {
+export const unFollowUserAC = (userId: Nullable<number>) => {
     return {
         type: 'UNFOLLOW',
         userId,
-    }
+    } as const
 }
 
-export const selectPageAC = (page: number): SelectPageActionType => {
+export const selectPageAC = (page: number) => {
     return {
         type: 'SELECT_PAGE',
         page,
-    }
+    } as const
 }
 
 export const getUsersThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(isFetchingAC(true));
     API.getUsers(currentPage, pageSize).then(
         res => {
-            dispatch(getUsersAC(res.items, res.totalCount))
+            dispatch(getUsersAC(res.items, res.totalCount));
             dispatch(isFetchingAC(false));
         }
     )
 }
 
 export const selectPageThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
-    dispatch(selectPageAC(currentPage))
+    dispatch(selectPageAC(currentPage));
     API.getUsers(currentPage, pageSize).then(
-        res => dispatch(getUsersAC(res.items, res.totalCount))
+        res => {
+            dispatch(getUsersAC(res.items, res.totalCount));
+        }
     )
 }
 
-export const followUserThunk = (userId: number) => (dispatch: Dispatch) => {
+export const followUserThunk = (userId: Nullable<number>) => (dispatch: Dispatch) => {
     API.follow(userId).then(
         res => {
             if (res.data.resultCode === 0) {
-                dispatch(followUserAC(userId))
+                dispatch(followUserAC(userId));
             }
         }
     )
@@ -126,7 +115,7 @@ export const unfollowUserThunk = (userId: number) => (dispatch: Dispatch) => {
     API.unfollow(userId).then(
         res => {
             if (res.data.resultCode === 0) {
-                dispatch(unFollowUserAC(userId))
+                dispatch(unFollowUserAC(userId));
             }
         }
     )
