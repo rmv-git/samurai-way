@@ -33,25 +33,20 @@ export const dialogsReducer = (state = initialState, action: DialogsReducerActio
     }
 }
 
-type SendMessageActionType = {
-    type: 'SEND_MESSAGE';
-}
-type UpdateMessageActionType = {
-    type: 'UPDATE_MESSAGE',
-    newMessageText: string,
-}
+type SendMessageActionType = ReturnType<typeof sendMessageAC>;
+type UpdateMessageActionType = ReturnType<typeof updateMessageAC>;
 
 export type DialogsReducerActionsType = SendMessageActionType | UpdateMessageActionType;
 
-export const sendMessageAC = (): SendMessageActionType => {
+export const sendMessageAC = () => {
     return {
         type: 'SEND_MESSAGE',
-    }
+    } as const
 }
 
-export const updateMessageAC = (value: string): UpdateMessageActionType => {
+export const updateMessageAC = (value: string) => {
     return {
         type: 'UPDATE_MESSAGE',
         newMessageText: value,
-    }
+    } as const
 }
