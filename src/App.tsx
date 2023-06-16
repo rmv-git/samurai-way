@@ -1,22 +1,19 @@
 import React from 'react';
 import './App.css';
-import {HeaderComponent} from "./components/header/Header";
-import {Login} from "./components/login/Login";
 import {FooterComponent} from "./components/footer/Footer";
 import {Route} from "react-router-dom";
 import {ProfilePageContainer} from "./components/profile/ProfilePageContainer";
 import {DialogsPageContainer} from "./components/dialogs/DialogsPageContainer";
-import {NavbarContainer} from "./components/navbar/NavbarContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
 import {HeaderContainer} from "./components/header/HeaderContainerComponent";
-import {DialogsPage} from "./components/dialogs/DialogsPage";
 import {LoginContainer} from "./components/login/LoginContainer";
+import {Navbar} from './components/navbar/Navbar';
 
 export const App = () => {
     return (
         <div className={"app-wrapper"}>
             <HeaderContainer/>
-            <NavbarContainer/>
+            <Navbar/>
             <FooterComponent/>
             <div className={"app-wrapper-content"}>
                 <Route exact path={'/profile/:userId?'}>

@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     GetUsersResponseType, Nullable,
     ResponseType,
-    UserProfileResponseType,
+    UserProfileResponseType, UserResponseType,
 } from "../types/types";
 
 const instance = axios.create({
@@ -14,6 +14,13 @@ const instance = axios.create({
 });
 
 export const API = {
+    getAllUsers() {
+        return (
+            instance.get(`users`).then(
+                res => res.data
+            )
+        )
+    },
     getUsers(currentPage: number, pageSize: number) {
         return (
             instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}/`).then(

@@ -2,10 +2,9 @@ import React from "react";
 import "./Navbar.module.css";
 import classes from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
-import {Sidebar} from "../sidebar/Sidebar";
-import {NavbarContainerType} from "./NavbarContainer";
+import {SidebarContainer} from "../sidebar/SidebarContainer";
 
-export const Navbar = (props: NavbarContainerType) => {
+export const Navbar = () => {
     return (
         <div className={classes.nav}>
             <div className={classes.link}>
@@ -46,7 +45,7 @@ export const Navbar = (props: NavbarContainerType) => {
                     Users
                 </NavLink>
             </div>
-            <Sidebar arrayUsers={props.arrayUsers}/>
+            <SidebarContainer/>
         </div>
 
     );
