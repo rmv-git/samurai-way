@@ -54,40 +54,31 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
     }
 }
 
-type AddPostActionType = {
-    type: 'ADD_POST';
-}
-
-type NewPostTextActionType = {
-    type: 'NEW_POST_TEXT';
-    newPostText: string;
-}
-type GetUserProfileActionType = {
-    type: 'GET_USER_PROFILE';
-    profile: UserProfileResponseType;
-}
+type AddPostActionType = ReturnType<typeof addPostAC>;
+type NewPostTextActionType = ReturnType<typeof newPostTextAC>;
+type GetUserProfileActionType = ReturnType<typeof getUserProfileAC>;
 
 export type ProfileReducerActions =
     AddPostActionType
     | NewPostTextActionType
     | GetUserProfileActionType;
-export const addPostAC = (): AddPostActionType => {
+export const addPostAC = () => {
     return {
         type: 'ADD_POST',
-    }
+    } as const
 }
-export const newPostTextAC = (value: string): NewPostTextActionType => {
+export const newPostTextAC = (value: string) => {
     return {
         type: 'NEW_POST_TEXT',
         newPostText: value,
-    }
+    } as const
 }
 
-export const getUserProfileAC = (profile: UserProfileResponseType): GetUserProfileActionType => {
+export const getUserProfileAC = (profile: UserProfileResponseType) => {
     return {
         type: 'GET_USER_PROFILE',
         profile
-    }
+    } as const
 }
 
 export const getUserProfileThunk = (userId: number) => (dispatch: Dispatch) => {

@@ -1,13 +1,9 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {PostType, UserProfileResponseType} from "../../types/types";
 import {ProfilePage} from "./ProfilePage";
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import {addPostAC, getUserProfileAC, getUserProfileThunk, newPostTextAC} from "../../redux/profile-reducer";
-import classes from "./ProfilePage.module.css";
-import {ProfileDescription} from "./description/ProfileDescription";
-import {Posts} from "./posts/Posts";
+import {addPostAC, getUserProfileThunk, newPostTextAC} from "../../redux/profile-reducer";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 
@@ -31,6 +27,13 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
         }
     }
 
+    updatePost = (value: string) => {
+        this.props.updatePost(value);
+    }
+    addPost = () => {
+        this.props.addPost();
+    }
+
     render() {
 
         if (!this.props.isAuth) {
@@ -40,7 +43,7 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
         return (
             this.props.isFetching
                 ? <Preloader/>
-                : <ProfilePage {...this.props}/>
+                : <ProfilePage {...this.props} updatePost={this.updatePost} addPost={this.addPost}/>
         )
     }
 }
@@ -52,12 +55,6 @@ type MapStateToPropsType = {
     isFetching: boolean;
     isAuth: boolean;
 }
-// type MapDispatchToPropsType = {
-//     addPost: () => void;
-//     updatePost: (value: string) => void;
-//     getUserProfile: (profile: UserProfileResponseType) => void;
-// }
-// export type ProfilePageContainerType = MapDispatchToPropsType & MapStateToPropsType;
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
@@ -68,19 +65,6 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         isAuth: state.authReducer.isAuth,
     }
 }
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-//     return {
-//         addPost: () => {
-//             dispatch(addPostAC())
-//         },
-//         updatePost: (value: string) => {
-//             dispatch(newPostTextAC(value))
-//         },
-//         getUserProfile: (profile: UserProfileResponseType) => {
-//             dispatch(getUserProfileAC(profile))
-//         }
-//     }
-// }
 
 export const ConnectComponent = connect(mapStateToProps, {
     addPost: addPostAC,
