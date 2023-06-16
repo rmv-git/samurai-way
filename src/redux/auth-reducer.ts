@@ -85,17 +85,17 @@ export const logoutThunk = () => (dispatch: Dispatch) => {
     API.logout().then(
         res => {
             if (res.data.resultCode === 0) {
-                dispatch(loginAC('', '', false))
+                dispatch(loginAC(null, null, false))
             }
         }
     )
 }
 
-export const isAuthThunk = (id: Nullable<number>, login: Nullable<string>, email: Nullable<string>) => (dispatch: Dispatch) => {
+export const isAuthThunk = () => (dispatch: Dispatch) => {
     API.auth().then(
         res => {
             if (res.data.resultCode === 0 ) {
-                dispatch(getAuthDataAC(id, login, email));
+                dispatch(getAuthDataAC(res.data.data.id, res.data.data.login, res.data.data.email));
                 dispatch(authAC(true));
             }
         }

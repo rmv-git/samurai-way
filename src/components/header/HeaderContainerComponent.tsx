@@ -8,7 +8,7 @@ import {Nullable} from "../../types/types";
 export class HeaderClassComponent extends React.Component<HeaderContainerPropsType, any> {
 
     componentDidMount() {
-        this.props.isAuthThunk(this.props.id, this.props.login, this.props.email);
+        this.props.isAuthThunk();
     }
 
     logOut = () => {
