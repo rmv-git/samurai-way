@@ -6,6 +6,7 @@ import {RootStateType} from "../../redux/redux-store";
 import {addPostAC, getUserProfileThunk, newPostTextAC} from "../../redux/profile-reducer";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
 
@@ -36,9 +37,9 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
 
     render() {
 
-        if (!this.props.isAuth) {
-            return <Redirect to={'/login'}/>
-        }
+        // if (!this.props.isAuth) {
+        //     return <Redirect to={'/login'}/>
+        // }
 
         return (
             this.props.isFetching
@@ -53,7 +54,7 @@ type MapStateToPropsType = {
     newPostText: string;
     profile: UserProfileResponseType;
     isFetching: boolean;
-    isAuth: boolean;
+    // isAuth: boolean;
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
@@ -62,7 +63,7 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         arrayPosts: state.profileReducer.arrayPosts,
         profile: state.profileReducer.profile,
         isFetching: state.appReducer.isFetching,
-        isAuth: state.authReducer.isAuth,
+        // isAuth: state.authReducer.isAuth,
     }
 }
 
@@ -78,4 +79,4 @@ type PathParamType = {
 
 export type ProfilePageContainerType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
 const withRouterComponent = withRouter(ProfilePageClassComponent);
-export const ProfilePageContainer = ConnectComponent(withRouterComponent);
+export const ProfilePageContainer = withAuthRedirect(ConnectComponent(withRouterComponent));
