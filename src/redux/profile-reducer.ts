@@ -52,9 +52,7 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
         case 'GET_USER_PROFILE':
             return {...state, profile: action.profile}
         case 'GET_USER_STATUS':
-            return {
-                ...state, status: action.status
-            }
+            return {...state, status: action.status}
         default:
             return state;
     }
@@ -112,6 +110,18 @@ export const getUserStatusThunk = (userId: number) => (dispatch: Dispatch) => {
         res => {
             dispatch(isFetchingAC(false));
             dispatch(getUserStatusAC(res.data))
+        }
+    )
+}
+
+export const updateUserStatusThunk = (status: string) => (dispatch: Dispatch) => {
+    dispatch(isFetchingAC(true));
+    API.updateStatus(status).then(
+        res => {
+            if (res.data.resultCode === 0) {
+                dispatch(isFetchingAC(false));
+                dispatch(getUserStatusAC(status))
+            }
         }
     )
 }

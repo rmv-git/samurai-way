@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     GetUsersResponseType, Nullable,
     ResponseType,
-    UserProfileResponseType, UserResponseType,
+    UserProfileResponseType,
 } from "../types/types";
 
 const instance = axios.create({
@@ -45,7 +45,11 @@ export const API = {
     },
     auth() {
         return (
-            instance.get<ResponseType<{ id: Nullable<number>, email: Nullable<string>, login: Nullable<string>, }>>(`auth/me`)
+            instance.get<ResponseType<{
+                id: Nullable<number>,
+                email: Nullable<string>,
+                login: Nullable<string>,
+            }>>(`auth/me`)
         )
     },
     login(email: Nullable<string>, password: Nullable<string>, rememberMe: boolean) {
@@ -56,5 +60,8 @@ export const API = {
     },
     getUserStatus(userId: number) {
         return instance.get(`profile/status/${userId}`)
-    }
+    },
+    updateStatus(status: string) {
+        return instance.put<ResponseType>(`profile/status`, {status})
+    },
 }

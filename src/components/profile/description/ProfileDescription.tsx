@@ -6,11 +6,12 @@ import {Status} from "./status/Status";
 type PropsType = {
     profile: UserProfileResponseType;
     status: string;
+    updateUserStatus: (value: string) => void;
 }
 export const ProfileDescription = (props: PropsType) => {
     return (
         <div>
-            <Status status={props.status}/>
+            <Status status={props.status} updateUserStatus={props.updateUserStatus}/>
             <div>
                 {
                     !props.profile.photos
@@ -29,7 +30,6 @@ export const ProfileDescription = (props: PropsType) => {
                     <div>{props.profile.fullName}</div>
                     <div>{props.profile.lookingForAJobDescription}</div>
                 </div>
-                {/*<img src={robot} style={{width: '64px', height: '64px'}} alt={'robot_avatar_image'}/>*/}
             </div>
         </div>
     );

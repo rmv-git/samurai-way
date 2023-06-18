@@ -3,8 +3,13 @@ import {PostType, UserProfileResponseType} from "../../types/types";
 import {ProfilePage} from "./ProfilePage";
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {addPostAC, getUserProfileThunk, getUserStatusThunk, newPostTextAC} from "../../redux/profile-reducer";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {
+    addPostAC,
+    getUserProfileThunk,
+    getUserStatusThunk,
+    newPostTextAC, updateUserStatusThunk
+} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
@@ -35,19 +40,19 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
     addPost = () => {
         this.props.addPost();
     }
+    updateStatus = (value: string) => {
+        this.props.updateUserStatusThunk(value);
+    }
 
     render() {
-
-        // if (!this.props.isAuth) {
-        //     return <Redirect to={'/login'}/>
-        // }
-        console.log(this.props.profile)
-        console.log(this.props.status)
 
         return (
             this.props.isFetching
                 ? <Preloader/>
-                : <ProfilePage {...this.props} updatePost={this.updatePost} addPost={this.addPost}/>
+                : <ProfilePage {...this.props}
+                               updatePost={this.updatePost}
+                               addPost={this.addPost}
+                               updateUserStatus={this.updateStatus}/>
         )
     }
 }
@@ -58,7 +63,6 @@ type MapStateToPropsType = {
     profile: UserProfileResponseType;
     isFetching: boolean;
     status: string;
-    // isAuth: boolean;
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
@@ -68,7 +72,6 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         profile: state.profileReducer.profile,
         isFetching: state.appReducer.isFetching,
         status: state.profileReducer.status,
-        // isAuth: state.authReducer.isAuth,
     }
 }
 
@@ -77,6 +80,7 @@ export const ConnectComponent = connect(mapStateToProps, {
     updatePost: newPostTextAC,
     getUserProfileThunk,
     getUserStatusThunk,
+    updateUserStatusThunk,
 });
 
 type PathParamType = {
