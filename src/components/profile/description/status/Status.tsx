@@ -1,39 +1,56 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 
 type PropsType = {
     status: string;
     updateUserStatus: (value: string) => void;
 }
-export const Status = (props: PropsType) => {
 
-    const [edit, setEdit] = useState<boolean>(false);
-    const [value, setValue] = useState<string>('');
+type StateType = {
+    editMode: boolean
+    status: string
+}
 
-    const activateEditMode = () => {
-        setEdit(true);
+export class Status extends React.Component<PropsType, StateType> {
+
+    state: StateType = {
+        editMode: false,
+        status: this.props.status,
     }
 
-    const deactivateEditMode = () => {
-        setEdit(false);
-        props.updateUserStatus(value);
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
     }
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.currentTarget.value);
+    activateEditMode = () => {
+        this.setState({editMode: true});
     }
 
-    return (
-        <div>
-            {
-                edit
-                    ? <input value={value}
-                             onChange={onChangeHandler}
-                             onBlur={deactivateEditMode}
-                             autoFocus/>
-                    : <span onDoubleClick={activateEditMode}>{props.status}</span>
-            }
-            {/*{props.status}*/}
-        </div>
-    );
+    deactivateEditMode = () => {
+        this.setState({editMode: false});
+        this.props.updateUserStatus(this.state.status);
+    }
+
+    onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        this.setState({status: event.currentTarget.value});
+    }
+
+    render() {
+        return (
+            <div>
+                {
+                    this.state.editMode
+                        ? <input value={this.state.status}
+                                 onChange={this.onChangeHandler}
+                                 onBlur={this.deactivateEditMode}
+                                 autoFocus/>
+                        : <span onDoubleClick={this.activateEditMode}>status: {this.state.status}</span>
+                }
+            </div>
+        );
+    }
 };
 
