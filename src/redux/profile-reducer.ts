@@ -7,6 +7,7 @@ type InitialStateType = {
     newPostText: string;
     arrayPosts: Array<PostType>;
     profile: UserProfileResponseType;
+    status: string;
 }
 const initialState: InitialStateType = {
     newPostText: '',
@@ -35,6 +36,7 @@ const initialState: InitialStateType = {
             large: '',
         }
     },
+    status: '',
 }
 export const profileReducer = (state = initialState, action: ProfileReducerActions): InitialStateType => {
     switch (action.type) {
@@ -49,6 +51,10 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
             return {...state, newPostText: action.newPostText}
         case 'GET_USER_PROFILE':
             return {...state, profile: action.profile}
+        case 'GET_USER_STATUS':
+            return {
+                ...state, status: action.status
+            }
         default:
             return state;
     }
@@ -57,11 +63,13 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
 type AddPostActionType = ReturnType<typeof addPostAC>;
 type NewPostTextActionType = ReturnType<typeof newPostTextAC>;
 type GetUserProfileActionType = ReturnType<typeof getUserProfileAC>;
+type GetUserStatusActionType = ReturnType<typeof getUserStatusAC>;
 
 export type ProfileReducerActions =
     AddPostActionType
     | NewPostTextActionType
-    | GetUserProfileActionType;
+    | GetUserProfileActionType
+    | GetUserStatusActionType;
 export const addPostAC = () => {
     return {
         type: 'ADD_POST',
@@ -81,12 +89,29 @@ export const getUserProfileAC = (profile: UserProfileResponseType) => {
     } as const
 }
 
+export const getUserStatusAC = (status: string) => {
+    return {
+        type: 'GET_USER_STATUS',
+        status
+    } as const
+}
+
 export const getUserProfileThunk = (userId: number) => (dispatch: Dispatch) => {
     dispatch(isFetchingAC(true));
     API.getUserProfile(userId).then(
         res => {
             dispatch(getUserProfileAC(res.data))
             dispatch(isFetchingAC(false));
+        }
+    )
+}
+
+export const getUserStatusThunk = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(isFetchingAC(true));
+    API.getUserStatus(userId).then(
+        res => {
+            dispatch(isFetchingAC(false));
+            dispatch(getUserStatusAC(res.data))
         }
     )
 }

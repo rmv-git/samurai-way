@@ -53,5 +53,8 @@ export const API = {
     },
     logout() {
         return instance.delete<ResponseType>(`auth/login`)
+    },
+    getUserStatus(userId: number) {
+        return instance.get(`profile/status/${userId}`)
     }
 }

@@ -10,6 +10,7 @@ type PropsType = {
     newPostText: string;
     addPost: () => void;
     updatePost: (value: string) => void;
+    status: string;
 }
 
 export const ProfilePage = (props: PropsType) => {
@@ -20,7 +21,7 @@ export const ProfilePage = (props: PropsType) => {
 
     return (
         <div className={classes.content}>
-            <ProfileDescription profile={props.profile}/>
+            <ProfileDescription profile={props.profile} status={props.status}/>
             <Posts posts={props.arrayPosts}/>
             <div>
                 <textarea value={props.newPostText}
