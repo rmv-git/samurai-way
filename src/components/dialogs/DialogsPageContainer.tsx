@@ -4,8 +4,8 @@ import {DialogsPage} from "./DialogsPage";
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {sendMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
-import {Redirect} from "react-router-dom";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export class DialogsClassContainerComponent extends React.Component<DialogsPageContainerType, any> {
 
@@ -19,10 +19,6 @@ export class DialogsClassContainerComponent extends React.Component<DialogsPageC
 
     render() {
 
-        if (!this.props.isAuth) {
-            return <Redirect to={'/login'}/>
-        }
-
         return (
             <DialogsPage {...this.props}
                          updateMessage={this.updateMessage}
@@ -35,7 +31,6 @@ type MapStateToPropsType = {
     arrayUsers: UserType[];
     arrayMessages: MessageType[];
     newMessageText: string,
-    isAuth: boolean,
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
@@ -43,7 +38,6 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         newMessageText: state.dialogsReducer.newMessageText,
         arrayUsers: state.dialogsReducer.arrayUsers,
         arrayMessages: state.dialogsReducer.arrayMessages,
-        isAuth: state.authReducer.isAuth,
     }
 }
 
@@ -54,5 +48,4 @@ const ConnectComponent = connect(mapStateToProps, {
 
 type ConnectedPropsType = ConnectedProps<typeof ConnectComponent>;
 export type DialogsPageContainerType = ConnectedPropsType & MapStateToPropsType;
-// export const DialogsPageContainer = ConnectComponent(DialogsClassContainerComponent);
-export const DialogsPageContainer = compose<ComponentType>(ConnectComponent)(DialogsClassContainerComponent);
+export const DialogsPageContainer = compose<ComponentType>(withAuthRedirect, ConnectComponent)(DialogsClassContainerComponent);

@@ -5,7 +5,6 @@ import {UserResponseType} from "../../types/types";
 import {followUserThunk, getUsersThunk, selectPageThunk, unfollowUserThunk} from "../../redux/users-reducer";
 import {RootStateType} from "../../redux/redux-store";
 import {Preloader} from "../../features/preloader/Preloader";
-import {Redirect} from "react-router-dom";
 import {compose} from "redux";
 
 
@@ -19,10 +18,6 @@ export class UsersClassContainer extends React.Component<UsersContainerPropsType
     }
 
     render() {
-
-        if (!this.props.isAuth) {
-            return <Redirect to={'/login'}/>
-        }
 
         return (
             this.props.isFetching
@@ -46,7 +41,6 @@ type MapStateToPropsType = {
     currentPage: number,
     pageSize: number,
     isFetching: boolean,
-    isAuth: boolean,
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
@@ -56,7 +50,6 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         currentPage: state.usersReducer.currentPage,
         pageSize: state.usersReducer.pageSize,
         isFetching: state.appReducer.isFetching,
-        isAuth: state.authReducer.isAuth,
     }
 }
 
@@ -68,5 +61,4 @@ const ConnectComponent = connect(mapStateToProps, {
 });
 
 export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>;
-// export const UsersContainer = ConnectComponent(UsersClassContainer);
 export const UsersContainer = compose<ComponentType>(ConnectComponent)(UsersClassContainer);
