@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect, ConnectedProps} from "react-redux";
 import {Users} from "./Users";
 import {UserResponseType} from "../../types/types";
@@ -6,6 +6,7 @@ import {followUserThunk, getUsersThunk, selectPageThunk, unfollowUserThunk} from
 import {RootStateType} from "../../redux/redux-store";
 import {Preloader} from "../../features/preloader/Preloader";
 import {Redirect} from "react-router-dom";
+import {compose} from "redux";
 
 
 export class UsersClassContainer extends React.Component<UsersContainerPropsType> {
@@ -67,4 +68,5 @@ const ConnectComponent = connect(mapStateToProps, {
 });
 
 export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>;
-export const UsersContainer = ConnectComponent(UsersClassContainer);
+// export const UsersContainer = ConnectComponent(UsersClassContainer);
+export const UsersContainer = compose<ComponentType>(ConnectComponent)(UsersClassContainer);

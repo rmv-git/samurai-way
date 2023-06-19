@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {MessageType, UserType} from "../../types/types";
 import {DialogsPage} from "./DialogsPage";
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {sendMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
 import {Redirect} from "react-router-dom";
+import {compose} from "redux";
 
 export class DialogsClassContainerComponent extends React.Component<DialogsPageContainerType, any> {
 
@@ -53,4 +54,5 @@ const ConnectComponent = connect(mapStateToProps, {
 
 type ConnectedPropsType = ConnectedProps<typeof ConnectComponent>;
 export type DialogsPageContainerType = ConnectedPropsType & MapStateToPropsType;
-export const DialogsPageContainer = ConnectComponent(DialogsClassContainerComponent);
+// export const DialogsPageContainer = ConnectComponent(DialogsClassContainerComponent);
+export const DialogsPageContainer = compose<ComponentType>(ConnectComponent)(DialogsClassContainerComponent);

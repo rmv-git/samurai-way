@@ -1,9 +1,10 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {Login} from "./Login";
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {loginThunk} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
+import {compose} from "redux";
 
 export class LoginClassComponent extends React.Component<LoginContainerPropsType, any> {
     componentDidMount() {
@@ -38,4 +39,5 @@ const ConnectComponent = connect(maStateToProps, {loginThunk});
 export type LoginContainerPropsType = ConnectedPropsType & MapStateToPropsType;
 type ConnectedPropsType = ConnectedProps<typeof ConnectComponent>;
 
-export const LoginContainer = ConnectComponent(LoginClassComponent);
+// export const LoginContainer = ConnectComponent(LoginClassComponent);
+export const LoginContainer = compose<ComponentType>(ConnectComponent)(LoginClassComponent);

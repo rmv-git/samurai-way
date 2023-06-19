@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {PostType, UserProfileResponseType} from "../../types/types";
 import {ProfilePage} from "./ProfilePage";
 import {connect, ConnectedProps} from "react-redux";
@@ -12,6 +12,7 @@ import {
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
 
@@ -88,5 +89,10 @@ type PathParamType = {
 }
 
 export type ProfilePageContainerType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
-const withRouterComponent = withRouter(ProfilePageClassComponent);
-export const ProfilePageContainer = withAuthRedirect(ConnectComponent(withRouterComponent));
+// const withRouterComponent = withRouter(ProfilePageClassComponent);
+// export const ProfilePageContainer = withAuthRedirect(ConnectComponent(withRouterComponent));
+export const ProfilePageContainer = compose<ComponentType>(
+    withRouter,
+    withAuthRedirect,
+    ConnectComponent,
+)(ProfilePageClassComponent);
