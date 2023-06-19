@@ -1,14 +1,14 @@
 import {Dispatch} from "redux";
 import {API} from "../api/API";
 import {Nullable} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {RootStateType} from "./redux-store";
 
 type InitialStateType = {
     isAuth: boolean;
     id: Nullable<number>;
     login: Nullable<string>;
     email: Nullable<string>;
-    password: Nullable<string>;
-    rememberMe: boolean;
 }
 
 const initialState: InitialStateType = {
@@ -16,8 +16,6 @@ const initialState: InitialStateType = {
     id: null,
     login: null,
     email: null,
-    password: null,
-    rememberMe: false,
 }
 export const authReducer = (state = initialState, action: AuthReducerActionType): InitialStateType => {
     switch (action.type) {
@@ -25,27 +23,19 @@ export const authReducer = (state = initialState, action: AuthReducerActionType)
             return {
                 ...state, isAuth: action.isAuth
             }
-        case 'GET_AUTH_DATA':
+        case 'SET_AUTH_USER_DATA':
             return {
                 ...state, id: action.id, email: action.email, login: action.login
-            }
-        case 'LOGIN':
-            return {
-                ...state,
-                email: action.email,
-                password: action.password,
-                rememberMe: action.rememberMe
             }
         default:
             return state;
     }
 }
 
-type AuthReducerActionType = AuthActionType | GetAuthDataActionType | LoginActionType;
+type AuthReducerActionType = AuthActionType | GetAuthDataActionType;
 
 type AuthActionType = ReturnType<typeof authAC>;
-type GetAuthDataActionType = ReturnType<typeof getAuthDataAC>;
-type LoginActionType = ReturnType<typeof loginAC>;
+type GetAuthDataActionType = ReturnType<typeof authUserDataAC>;
 
 export const authAC = (isAuth: boolean) => {
     return {
@@ -53,29 +43,20 @@ export const authAC = (isAuth: boolean) => {
         isAuth,
     } as const
 }
-export const getAuthDataAC = (id: Nullable<number>, login: Nullable<string>, email: Nullable<string>) => {
+export const authUserDataAC = (id: Nullable<number>, login: Nullable<string>, email: Nullable<string>) => {
     return {
-        type: 'GET_AUTH_DATA',
+        type: 'SET_AUTH_USER_DATA',
         id,
         login,
         email
     } as const
 }
 
-export const loginAC = (email: Nullable<string>, password: Nullable<string>, rememberMe: boolean) => {
-    return {
-        type: 'LOGIN',
-        email,
-        password,
-        rememberMe,
-    } as const
-}
-
-export const loginThunk = (email: Nullable<string>, password: Nullable<string>, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const loginThunk = (email: Nullable<string>, password: Nullable<string>, rememberMe: boolean): ThunkAction<void, RootStateType, unknown, any> => (dispatch) => {
     API.login(email, password, rememberMe).then(
         res => {
             if (res.data.resultCode === 0) {
-                dispatch(loginAC(email, password, rememberMe))
+                dispatch(isAuthThunk());
             }
         }
     )
@@ -85,7 +66,8 @@ export const logoutThunk = () => (dispatch: Dispatch) => {
     API.logout().then(
         res => {
             if (res.data.resultCode === 0) {
-                dispatch(loginAC(null, null, false))
+                dispatch(authUserDataAC(null, null, null));
+                dispatch(authAC(false));
             }
         }
     )
@@ -94,8 +76,8 @@ export const logoutThunk = () => (dispatch: Dispatch) => {
 export const isAuthThunk = () => (dispatch: Dispatch) => {
     API.auth().then(
         res => {
-            if (res.data.resultCode === 0 ) {
-                dispatch(getAuthDataAC(res.data.data.id, res.data.data.login, res.data.data.email));
+            if (res.data.resultCode === 0) {
+                dispatch(authUserDataAC(res.data.data.id, res.data.data.login, res.data.data.email));
                 dispatch(authAC(true));
             }
         }

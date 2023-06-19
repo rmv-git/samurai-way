@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {authAC, getAuthDataAC, isAuthThunk, logoutThunk} from "../../redux/auth-reducer";
+import {authAC, isAuthThunk, logoutThunk} from "../../redux/auth-reducer";
 import {HeaderComponent} from "./Header";
 import {Nullable} from "../../types/types";
 
@@ -45,7 +45,6 @@ export type HeaderContainerPropsType = ConnectedProps<typeof ConnectComponent> &
 
 const ConnectComponent = connect(mapStateToProps, {
     authAC,
-    getAuthDataAC,
     logoutThunk,
     isAuthThunk,
 });

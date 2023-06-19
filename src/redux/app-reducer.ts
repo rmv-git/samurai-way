@@ -1,7 +1,4 @@
-import {Dispatch} from "redux";
-import {API} from "../api/API";
-import {getUserProfileAC} from "./profile-reducer";
-import {authAC, getAuthDataAC, isAuthThunk, loginThunk} from "./auth-reducer";
+import {isAuthThunk} from "./auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {RootStateType} from "./redux-store";
 
