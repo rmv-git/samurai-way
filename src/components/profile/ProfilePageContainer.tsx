@@ -13,6 +13,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {arrayPostsSl, isFetchingSl, newPostTextSl, profileSl, statusSl} from "../../selectors/Seleletors";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
 
@@ -66,13 +67,22 @@ type MapStateToPropsType = {
     status: string;
 }
 
+// const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+//     return {
+//         newPostText: state.profileReducer.newPostText,
+//         arrayPosts: state.profileReducer.arrayPosts,
+//         profile: state.profileReducer.profile,
+//         isFetching: state.appReducer.isFetching,
+//         status: state.profileReducer.status,
+//     }
+// }
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
-        newPostText: state.profileReducer.newPostText,
-        arrayPosts: state.profileReducer.arrayPosts,
-        profile: state.profileReducer.profile,
-        isFetching: state.appReducer.isFetching,
-        status: state.profileReducer.status,
+        newPostText: newPostTextSl(state),
+        arrayPosts: arrayPostsSl(state),
+        profile: profileSl(state),
+        isFetching: isFetchingSl(state),
+        status: statusSl(state),
     }
 }
 
