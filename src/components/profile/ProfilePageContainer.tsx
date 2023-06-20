@@ -13,7 +13,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {arrayPostsSl, isFetchingSl, newPostTextSl, profileSl, statusSl} from "../../selectors/Seleletors";
+import {arrayPostsSl, isFetchingSl, profileSl, statusSl} from "../../selectors/Seleletors";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
 
@@ -36,11 +36,11 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
         }
     }
 
-    updatePost = (value: string) => {
-        this.props.updatePost(value);
-    }
-    addPost = () => {
-        this.props.addPost();
+    // updatePost = (value: string) => {
+    //     this.props.updatePost(value);
+    // }
+    addPost = (value: string) => {
+        this.props.addPost(value);
     }
     updateStatus = (value: string) => {
         this.props.updateUserStatusThunk(value);
@@ -52,7 +52,7 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
             this.props.isFetching
                 ? <Preloader/>
                 : <ProfilePage {...this.props}
-                               updatePost={this.updatePost}
+                               // updatePost={this.updatePost}
                                addPost={this.addPost}
                                updateUserStatus={this.updateStatus}/>
         )
@@ -61,7 +61,7 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
 
 type MapStateToPropsType = {
     arrayPosts: PostType[];
-    newPostText: string;
+    // newPostText: string;
     profile: UserProfileResponseType;
     isFetching: boolean;
     status: string;
@@ -78,7 +78,7 @@ type MapStateToPropsType = {
 // }
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
-        newPostText: newPostTextSl(state),
+        // newPostText: newPostTextSl(state),
         arrayPosts: arrayPostsSl(state),
         profile: profileSl(state),
         isFetching: isFetchingSl(state),

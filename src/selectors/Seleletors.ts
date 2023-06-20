@@ -1,8 +1,8 @@
 import {RootStateType} from "../redux/redux-store";
 
-export const newPostTextSl = (state: RootStateType) => {
-    return state.profileReducer.newPostText
-}
+// export const newPostTextSl = (state: RootStateType) => {
+//     return state.profileReducer.newPostText
+// }
 export const arrayPostsSl = (state: RootStateType) => {
     return state.profileReducer.arrayPosts
 }

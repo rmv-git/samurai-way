@@ -4,13 +4,13 @@ import {API} from "../api/API";
 import {isFetchingAC} from "./app-reducer";
 
 type InitialStateType = {
-    newPostText: string;
+    // newPostText: string;
     arrayPosts: Array<PostType>;
     profile: UserProfileResponseType;
     status: string;
 }
 const initialState: InitialStateType = {
-    newPostText: '',
+    // newPostText: '',
     arrayPosts: [
         {id: 1, text: 'Lorem ipsum dolor sit amet.', likesCount: 10},
         {id: 2, text: 'Lorem ipsum dolor sit amet.', likesCount: 7},
@@ -43,12 +43,12 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
         case 'ADD_POST':
             const newPost: PostType = {
                 id: new Date().getTime(),
-                text: state.newPostText,
+                text: action.value,
                 likesCount: 0,
             };
-            return {...state, arrayPosts: [newPost, ...state.arrayPosts], newPostText: ''}
-        case 'NEW_POST_TEXT':
-            return {...state, newPostText: action.newPostText}
+            return {...state, arrayPosts: [newPost, ...state.arrayPosts]}
+        // case 'NEW_POST_TEXT':
+        //     return {...state, newPostText: action.newPostText}
         case 'GET_USER_PROFILE':
             return {...state, profile: action.profile}
         case 'GET_USER_STATUS':
@@ -68,9 +68,10 @@ export type ProfileReducerActions =
     | NewPostTextActionType
     | GetUserProfileActionType
     | GetUserStatusActionType;
-export const addPostAC = () => {
+export const addPostAC = (value: string) => {
     return {
         type: 'ADD_POST',
+        value,
     } as const
 }
 export const newPostTextAC = (value: string) => {

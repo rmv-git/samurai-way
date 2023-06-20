@@ -9,11 +9,11 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export class DialogsClassContainerComponent extends React.Component<DialogsPageContainerType, any> {
 
-    updateMessage = (value: string) => {
-        this.props.updateMessageAC(value);
-    }
-    sendMessage = () => {
-        this.props.sendMessageAC();
+    // updateMessage = (value: string) => {
+    //     this.props.updateMessageAC(value);
+    // }
+    sendMessage = (value: string) => {
+        this.props.sendMessageAC(value);
     }
 
 
@@ -21,7 +21,7 @@ export class DialogsClassContainerComponent extends React.Component<DialogsPageC
 
         return (
             <DialogsPage {...this.props}
-                         updateMessage={this.updateMessage}
+                         // updateMessage={this.updateMessage}
                          sendMessage={this.sendMessage}/>
         );
     }
@@ -30,19 +30,19 @@ export class DialogsClassContainerComponent extends React.Component<DialogsPageC
 type MapStateToPropsType = {
     arrayUsers: UserType[];
     arrayMessages: MessageType[];
-    newMessageText: string,
+    // newMessageText: string,
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
-        newMessageText: state.dialogsReducer.newMessageText,
+        // newMessageText: state.dialogsReducer.newMessageText,
         arrayUsers: state.dialogsReducer.arrayUsers,
         arrayMessages: state.dialogsReducer.arrayMessages,
     }
 }
 
 const ConnectComponent = connect(mapStateToProps, {
-    updateMessageAC,
+    // updateMessageAC,
     sendMessageAC,
 });
 

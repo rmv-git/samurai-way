@@ -1,7 +1,7 @@
 import {DialogsPageType, MessageType} from "../types/types";
 
 const initialState: DialogsPageType = {
-    newMessageText: '',
+    // newMessageText: '',
     arrayUsers: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Sveta'},
@@ -23,11 +23,11 @@ export const dialogsReducer = (state = initialState, action: DialogsReducerActio
         case 'SEND_MESSAGE':
             const newMessage: MessageType = {
                 id: new Date().getTime(),
-                text: state.newMessageText,
+                text: action.value,
             };
-            return {...state, arrayMessages: [...state.arrayMessages, newMessage], newMessageText: ''}
-        case 'UPDATE_MESSAGE':
-            return {...state, newMessageText: action.newMessageText}
+            return {...state, arrayMessages: [...state.arrayMessages, newMessage]}
+        // case 'UPDATE_MESSAGE':
+        //     return {...state, newMessageText: action.newMessageText}
         default:
             return state;
     }
@@ -38,9 +38,10 @@ type UpdateMessageActionType = ReturnType<typeof updateMessageAC>;
 
 export type DialogsReducerActionsType = SendMessageActionType | UpdateMessageActionType;
 
-export const sendMessageAC = () => {
+export const sendMessageAC = (value: string) => {
     return {
         type: 'SEND_MESSAGE',
+        value,
     } as const
 }
 

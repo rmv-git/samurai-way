@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {Posts} from "./posts/Posts";
@@ -7,17 +7,25 @@ import {PostType, UserProfileResponseType} from "../../types/types";
 type PropsType = {
     profile: UserProfileResponseType;
     arrayPosts: PostType[];
-    newPostText: string;
-    addPost: () => void;
-    updatePost: (value: string) => void;
+    // newPostText: string;
+    addPost: (value: string) => void;
+    // updatePost: (value: string) => void;
     status: string;
     updateUserStatus: (value: string) => void;
 }
 
 export const ProfilePage = (props: PropsType) => {
 
+    const [value, setValue] = useState<string>('');
     const updatePost = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updatePost(event.currentTarget.value)
+        setValue(event.currentTarget.value)
+    }
+
+    const addPost = () => {
+        if (value !== null) {
+            props.addPost(value);
+        }
+        setValue('');
     }
 
     return (
@@ -28,9 +36,9 @@ export const ProfilePage = (props: PropsType) => {
             />
             <Posts posts={props.arrayPosts}/>
             <div>
-                <textarea value={props.newPostText}
+                <textarea value={value}
                           onChange={updatePost}/>
-                <button onClick={props.addPost}>Add</button>
+                <button onClick={addPost}>Add</button>
             </div>
         </div>
     );
