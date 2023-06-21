@@ -4,13 +4,12 @@ import {API} from "../api/API";
 import {isFetchingAC} from "./app-reducer";
 
 type InitialStateType = {
-    // newPostText: string;
     arrayPosts: Array<PostType>;
     profile: UserProfileResponseType;
     status: string;
+    error: string[];
 }
 const initialState: InitialStateType = {
-    // newPostText: '',
     arrayPosts: [
         {id: 1, text: 'Lorem ipsum dolor sit amet.', likesCount: 10},
         {id: 2, text: 'Lorem ipsum dolor sit amet.', likesCount: 7},
@@ -37,6 +36,7 @@ const initialState: InitialStateType = {
         }
     },
     status: '',
+    error: [],
 }
 export const profileReducer = (state = initialState, action: ProfileReducerActions): InitialStateType => {
     switch (action.type) {
@@ -47,12 +47,12 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
                 likesCount: 0,
             };
             return {...state, arrayPosts: [newPost, ...state.arrayPosts]}
-        // case 'NEW_POST_TEXT':
-        //     return {...state, newPostText: action.newPostText}
         case 'GET_USER_PROFILE':
             return {...state, profile: action.profile}
         case 'GET_USER_STATUS':
             return {...state, status: action.status}
+        case 'SET_ERROR':
+            return {...state, error: action.error}
         default:
             return state;
     }
@@ -62,12 +62,14 @@ type AddPostActionType = ReturnType<typeof addPostAC>;
 type NewPostTextActionType = ReturnType<typeof newPostTextAC>;
 type GetUserProfileActionType = ReturnType<typeof getUserProfileAC>;
 type GetUserStatusActionType = ReturnType<typeof getUserStatusAC>;
+type SetErrorActionType = ReturnType<typeof setErrorAC>;
 
 export type ProfileReducerActions =
     AddPostActionType
     | NewPostTextActionType
     | GetUserProfileActionType
-    | GetUserStatusActionType;
+    | GetUserStatusActionType
+    | SetErrorActionType;
 export const addPostAC = (value: string) => {
     return {
         type: 'ADD_POST',
@@ -92,6 +94,12 @@ export const getUserStatusAC = (status: string) => {
     return {
         type: 'GET_USER_STATUS',
         status
+    } as const
+}
+export const setErrorAC = (error: string[]) => {
+    return {
+        type: 'SET_ERROR',
+        error,
     } as const
 }
 
@@ -122,6 +130,10 @@ export const updateUserStatusThunk = (status: string) => (dispatch: Dispatch) =>
             if (res.data.resultCode === 0) {
                 dispatch(isFetchingAC(false));
                 dispatch(getUserStatusAC(status))
+            }
+            if (res.data.resultCode === 1) {
+                dispatch(isFetchingAC(false));
+                dispatch(setErrorAC(res.data.messages));
             }
         }
     )

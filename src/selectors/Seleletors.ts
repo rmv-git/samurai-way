@@ -16,3 +16,6 @@ export const isFetchingSl = (state: RootStateType) => {
 export const statusSl = (state: RootStateType) => {
     return state.profileReducer.status
 }
+export const errorSl = (state: RootStateType) => {
+    return state.profileReducer.error
+}

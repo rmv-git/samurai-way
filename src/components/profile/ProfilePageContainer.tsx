@@ -7,13 +7,14 @@ import {
     addPostAC,
     getUserProfileThunk,
     getUserStatusThunk,
-    newPostTextAC, updateUserStatusThunk
+    newPostTextAC,
+    updateUserStatusThunk
 } from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {Preloader} from "../../features/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {arrayPostsSl, isFetchingSl, profileSl, statusSl} from "../../selectors/Seleletors";
+import {arrayPostsSl, errorSl, isFetchingSl, profileSl, statusSl} from "../../selectors/Seleletors";
 
 export class ProfilePageClassComponent extends React.Component<ProfilePageContainerType, any> {
 
@@ -36,9 +37,6 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
         }
     }
 
-    // updatePost = (value: string) => {
-    //     this.props.updatePost(value);
-    // }
     addPost = (value: string) => {
         this.props.addPost(value);
     }
@@ -52,8 +50,8 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
             this.props.isFetching
                 ? <Preloader/>
                 : <ProfilePage {...this.props}
-                               // updatePost={this.updatePost}
                                addPost={this.addPost}
+                               error={this.props.error}
                                updateUserStatus={this.updateStatus}/>
         )
     }
@@ -61,28 +59,19 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
 
 type MapStateToPropsType = {
     arrayPosts: PostType[];
-    // newPostText: string;
     profile: UserProfileResponseType;
     isFetching: boolean;
     status: string;
+    error: string[];
 }
 
-// const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
-//     return {
-//         newPostText: state.profileReducer.newPostText,
-//         arrayPosts: state.profileReducer.arrayPosts,
-//         profile: state.profileReducer.profile,
-//         isFetching: state.appReducer.isFetching,
-//         status: state.profileReducer.status,
-//     }
-// }
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
-        // newPostText: newPostTextSl(state),
         arrayPosts: arrayPostsSl(state),
         profile: profileSl(state),
         isFetching: isFetchingSl(state),
         status: statusSl(state),
+        error: errorSl(state),
     }
 }
 
@@ -99,8 +88,7 @@ type PathParamType = {
 }
 
 export type ProfilePageContainerType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
-// const withRouterComponent = withRouter(ProfilePageClassComponent);
-// export const ProfilePageContainer = withAuthRedirect(ConnectComponent(withRouterComponent));
+
 export const ProfilePageContainer = compose<ComponentType>(
     withRouter,
     withAuthRedirect,

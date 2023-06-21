@@ -7,10 +7,9 @@ import {PostType, UserProfileResponseType} from "../../types/types";
 type PropsType = {
     profile: UserProfileResponseType;
     arrayPosts: PostType[];
-    // newPostText: string;
     addPost: (value: string) => void;
-    // updatePost: (value: string) => void;
     status: string;
+    error: string[];
     updateUserStatus: (value: string) => void;
 }
 
@@ -32,6 +31,7 @@ export const ProfilePage = (props: PropsType) => {
         <div className={classes.content}>
             <ProfileDescription profile={props.profile}
                                 status={props.status}
+                                error={props.error}
                                 updateUserStatus={props.updateUserStatus}
             />
             <Posts posts={props.arrayPosts}/>

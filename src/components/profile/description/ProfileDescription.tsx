@@ -7,11 +7,13 @@ type PropsType = {
     profile: UserProfileResponseType;
     status: string;
     updateUserStatus: (value: string) => void;
+    error: string[];
 }
 export const ProfileDescription = (props: PropsType) => {
     return (
         <div>
             <Status status={props.status} updateUserStatus={props.updateUserStatus}/>
+            <div>{props.error}</div>
             <div>
                 {
                     !props.profile.photos
