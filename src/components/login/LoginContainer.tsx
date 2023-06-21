@@ -26,11 +26,13 @@ export class LoginClassComponent extends React.Component<LoginContainerPropsType
 
 type MapStateToPropsType = {
     isAuth: boolean;
+    error: string[];
 }
 
 const maStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
         isAuth: state.authReducer.isAuth,
+        error: state.authReducer.error,
     }
 }
 
@@ -39,5 +41,4 @@ const ConnectComponent = connect(maStateToProps, {loginThunk});
 export type LoginContainerPropsType = ConnectedPropsType & MapStateToPropsType;
 type ConnectedPropsType = ConnectedProps<typeof ConnectComponent>;
 
-// export const LoginContainer = ConnectComponent(LoginClassComponent);
 export const LoginContainer = compose<ComponentType>(ConnectComponent)(LoginClassComponent);

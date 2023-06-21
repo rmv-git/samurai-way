@@ -9,6 +9,7 @@ type InitialStateType = {
     id: Nullable<number>;
     login: Nullable<string>;
     email: Nullable<string>;
+    error: string[],
 }
 
 const initialState: InitialStateType = {
@@ -16,6 +17,7 @@ const initialState: InitialStateType = {
     id: null,
     login: null,
     email: null,
+    error: [],
 }
 export const authReducer = (state = initialState, action: AuthReducerActionType): InitialStateType => {
     switch (action.type) {
@@ -27,15 +29,18 @@ export const authReducer = (state = initialState, action: AuthReducerActionType)
             return {
                 ...state, id: action.id, email: action.email, login: action.login
             }
+        case 'SET_ERROR':
+            return {...state, error: action.error}
         default:
             return state;
     }
 }
 
-type AuthReducerActionType = AuthActionType | GetAuthDataActionType;
+type AuthReducerActionType = AuthActionType | GetAuthDataActionType | SetErrorActionType;
 
 type AuthActionType = ReturnType<typeof authAC>;
 type GetAuthDataActionType = ReturnType<typeof authUserDataAC>;
+type SetErrorActionType = ReturnType<typeof setErrorAC>;
 
 export const authAC = (isAuth: boolean) => {
     return {
@@ -52,11 +57,22 @@ export const authUserDataAC = (id: Nullable<number>, login: Nullable<string>, em
     } as const
 }
 
+export const setErrorAC = (error: string[]) => {
+    return {
+        type: 'SET_ERROR',
+        error,
+    } as const
+}
+
+
 export const loginThunk = (email: Nullable<string>, password: Nullable<string>, rememberMe: boolean): ThunkAction<void, RootStateType, unknown, any> => (dispatch) => {
     API.login(email, password, rememberMe).then(
         res => {
             if (res.data.resultCode === 0) {
                 dispatch(isAuthThunk());
+            }
+            if (res.data.resultCode === 1) {
+                dispatch(setErrorAC(res.data.messages));
             }
         }
     )
@@ -79,6 +95,9 @@ export const isAuthThunk = () => (dispatch: Dispatch) => {
             if (res.data.resultCode === 0) {
                 dispatch(authUserDataAC(res.data.data.id, res.data.data.login, res.data.data.email));
                 dispatch(authAC(true));
+            }
+            if (res.data.resultCode === 1) {
+                dispatch(setErrorAC(res.data.messages));
             }
         }
     )

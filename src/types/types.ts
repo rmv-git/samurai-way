@@ -17,7 +17,6 @@ export type MessageType = {
 export type DialogsPageType = {
     arrayMessages: MessageType[];
     arrayUsers: UserType[];
-    // newMessageText: string;
 }
 export type SideBarType = {
     arrayUsers: Array<UserType>;

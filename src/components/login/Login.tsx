@@ -23,6 +23,7 @@ export const Login = (props: LoginContainerPropsType) => {
                                     <label>Email</label>
                                     <input {...input} type="text" placeholder="Email"/>
                                     {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    <span>{props.error}</span>
                                 </div>
                             )}
                         </Field>
