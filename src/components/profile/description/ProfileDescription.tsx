@@ -2,6 +2,7 @@ import React from 'react';
 import robot from './../../../assets/images/robot.png';
 import {UserProfileResponseType} from "../../../types/types";
 import {ProfileStatusWithHooks} from "./status/ProfileStatusWithHooks";
+import {ProfileContactsForm} from "./ProfileContactsForm";
 
 type PropsType = {
     profile: UserProfileResponseType;
@@ -23,15 +24,16 @@ export const ProfileDescription = (props: PropsType) => {
 
                 }
                 <div>
-                    Contacts:
-                    <div>{props.profile.contacts.facebook}</div>
-                    <div>{props.profile.contacts.twitter}</div>
-                    <div>{props.profile.contacts.github}</div>
-                    <div>{props.profile.contacts.vk}</div>
+                    <b>FullName: </b>{props.profile.fullName}
                 </div>
                 <div>
-                    <div>{props.profile.fullName}</div>
-                    <div>{props.profile.lookingForAJobDescription}</div>
+                    <b>LookingForAJob: </b>{JSON.stringify(props.profile.lookingForAJob)}
+                </div>
+                <div>
+                    <b>My professional skills: </b>{props.profile.lookingForAJobDescription}
+                </div>
+                <div>
+                    <ProfileContactsForm profile={props.profile}/>
                 </div>
             </div>
         </div>
