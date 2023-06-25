@@ -3,7 +3,7 @@ import {Dispatch} from "redux";
 import {API} from "../api/API";
 import {isFetchingAC} from "./app-reducer";
 
-type InitialStateType = {
+export type InitialStateType = {
     arrayPosts: Array<PostType>;
     profile: UserProfileResponseType;
     status: string;
@@ -53,6 +53,8 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
             return {...state, status: action.status}
         case 'SET_ERROR':
             return {...state, error: action.error}
+        case 'REMOVE_POST':
+            return {...state, arrayPosts: state.arrayPosts.filter(post => post.id !== action.id)}
         default:
             return state;
     }
@@ -63,13 +65,15 @@ type NewPostTextActionType = ReturnType<typeof newPostTextAC>;
 type GetUserProfileActionType = ReturnType<typeof getUserProfileAC>;
 type GetUserStatusActionType = ReturnType<typeof getUserStatusAC>;
 type SetErrorActionType = ReturnType<typeof setErrorAC>;
+type RemovePostActionType = ReturnType<typeof removePostAC>;
 
 export type ProfileReducerActions =
     AddPostActionType
     | NewPostTextActionType
     | GetUserProfileActionType
     | GetUserStatusActionType
-    | SetErrorActionType;
+    | SetErrorActionType
+    | RemovePostActionType;
 export const addPostAC = (value: string) => {
     return {
         type: 'ADD_POST',
@@ -100,6 +104,12 @@ export const setErrorAC = (error: string[]) => {
     return {
         type: 'SET_ERROR',
         error,
+    } as const
+}
+export const removePostAC = (id: number) => {
+    return {
+        type: 'REMOVE_POST',
+        id,
     } as const
 }
 
