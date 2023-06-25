@@ -1,7 +1,7 @@
 import React from 'react';
 import robot from './../../../assets/images/robot.png';
 import {UserProfileResponseType} from "../../../types/types";
-import {Status} from "./status/Status";
+import {ProfileStatusWithHooks} from "./status/ProfileStatusWithHooks";
 
 type PropsType = {
     profile: UserProfileResponseType;
@@ -12,7 +12,8 @@ type PropsType = {
 export const ProfileDescription = (props: PropsType) => {
     return (
         <div>
-            <Status status={props.status} updateUserStatus={props.updateUserStatus}/>
+            <ProfileStatusWithHooks status={props.status}
+                                    updateUserStatus={props.updateUserStatus}/>
             <div>{props.error}</div>
             <div>
                 {
