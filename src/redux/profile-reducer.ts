@@ -1,7 +1,9 @@
-import {PostType, UserProfileResponseType} from "../types/types";
+import {PostType, UserContactsResponseType, UserProfileResponseType} from "../types/types";
 import {Dispatch} from "redux";
 import {API} from "../api/API";
 import {isFetchingAC} from "./app-reducer";
+import {ThunkAction} from "redux-thunk";
+import {RootStateType} from "./redux-store";
 
 export type InitialStateType = {
     arrayPosts: Array<PostType>;
@@ -148,4 +150,16 @@ export const updateUserStatusThunk = (status: string) => (dispatch: Dispatch) =>
             }
         }
     )
+}
+
+export const updateProfileDataThunk = (contacts: UserContactsResponseType, aboutMe: string, lookingForAJob: boolean, lookingForAJobDescription: string, fullName: string): ThunkAction<void, RootStateType, unknown, any> => async (dispatch, getState) => {
+    console.log(2)
+    const id = Number(getState().profileReducer.profile.userId)
+    const response = await API.updateProfile(contacts, aboutMe, lookingForAJob, lookingForAJobDescription, fullName)
+    if (response.data.resultCode === 0) {
+        await dispatch(getUserProfileThunk(id));
+    } else {
+        console.log(response.data.messages)
+        const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some Error"
+    }
 }

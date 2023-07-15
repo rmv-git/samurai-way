@@ -1,41 +1,41 @@
 import React from "react";
 import style from "./ProfileDataEditForm.module.css";
 import {Field, Form} from "react-final-form";
-import {UserProfileResponseType} from "../../types/types";
+import {UserContactsResponseType, UserProfileResponseType} from "../../types/types";
 
 type PropsType = {
     profile: UserProfileResponseType,
-    // updateProfileDataThunk: (contacts: UserContactsResponseType, aboutMe: string, lookingForAJob: boolean, lookingForAJobDescription: string, fullName: string) => void,
-    // hideEditForm: () => void,
+    onSubmitHandler: (contacts: UserContactsResponseType, aboutMe: string, lookingForAJob: boolean, lookingForAJobDescription: string, fullName: string) => void,
+    deactivateEditMode: () => void,
     // setErrorMessage: string,
 }
 
 const required = (value: string) => (value ? undefined : "Required");
 
 export const ProfileDataEditForm = (props: PropsType) => {
-    // const updateProfileDataHandler = (values: any) => {
-    //     console.log(1)
-    //     props.updateProfileDataThunk({
-    //             facebook: values.facebook,
-    //             twitter: values.twitter,
-    //             github: values.github,
-    //             vk: values.vk,
-    //             website: values.website,
-    //             instagram: values.instagram,
-    //             youtube: values.youtube,
-    //             mainLink: values.mainLink,
-    //         },
-    //         values.aboutMe,
-    //         values.lookingForAJob,
-    //         values.lookingForAJobDescription,
-    //         values.fullName);
-    //     // props.hideEditForm();
-    // }
+    const updateProfileDataHandler = (values: any) => {
+        console.log(1)
+        props.onSubmitHandler({
+                facebook: values.facebook,
+                twitter: values.twitter,
+                github: values.github,
+                vk: values.vk,
+                website: values.website,
+                instagram: values.instagram,
+                youtube: values.youtube,
+                mainLink: values.mainLink,
+            },
+            values.aboutMe,
+            values.lookingForAJob,
+            values.lookingForAJobDescription,
+            values.fullName);
+        props.deactivateEditMode();
+    }
     // console.log(props.setErrorMessage)
     return (
         <div className={style.content}>
             <Form
-                onSubmit={() => {}}
+                onSubmit={updateProfileDataHandler}
                 initialValues={props.profile}
                 render={({handleSubmit, submitting, values}) => (
                     <form onSubmit={handleSubmit}>

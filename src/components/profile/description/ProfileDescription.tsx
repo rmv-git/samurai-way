@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import robot from './../../../assets/images/robot.png';
-import {UserProfileResponseType} from "../../../types/types";
+import {UserContactsResponseType, UserProfileResponseType} from "../../../types/types";
 import {ProfileStatusWithHooks} from "./status/ProfileStatusWithHooks";
 import {ProfileContactsForm} from "./ProfileContactsForm";
 import {ProfileDataEditForm} from "../ProfileDataEditForm";
@@ -10,10 +10,19 @@ type PropsType = {
     status: string;
     updateUserStatus: (value: string) => void;
     error: string[];
+    onSubmitHandler: (contacts: UserContactsResponseType, aboutMe: string, lookingForAJob: boolean, lookingForAJobDescription: string, fullName: string) => void;
 }
 export const ProfileDescription = (props: PropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
+
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        console.log('asdasd')
+    }
+    const activateEditMode = () => {
+        setEditMode(true);
+    }
 
     return (
         <div>
@@ -37,9 +46,15 @@ export const ProfileDescription = (props: PropsType) => {
                     <b>LookingForAJobDescription: </b>{props.profile.lookingForAJobDescription}
                 </div>
                 <div>
+                    <button onClick={activateEditMode}>Edit</button>
+                </div>
+                <div>
                     {
                         editMode
-                            ? <ProfileDataEditForm profile={props.profile}/>
+                            ? <ProfileDataEditForm profile={props.profile}
+                                                   onSubmitHandler={props.onSubmitHandler}
+                                                   deactivateEditMode={deactivateEditMode}
+                            />
                             : <ProfileContactsForm profile={props.profile}/>
                     }
                 </div>

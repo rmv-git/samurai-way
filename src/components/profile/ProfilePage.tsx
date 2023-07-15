@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from "react";
 import classes from "./ProfilePage.module.css";
 import {ProfileDescription} from "./description/ProfileDescription";
 import {Posts} from "./posts/Posts";
-import {PostType, UserProfileResponseType} from "../../types/types";
+import {PostType, UserContactsResponseType, UserProfileResponseType} from "../../types/types";
 
 type PropsType = {
     profile: UserProfileResponseType;
@@ -11,6 +11,7 @@ type PropsType = {
     status: string;
     error: string[];
     updateUserStatus: (value: string) => void;
+    onSubmitHandler: (contacts: UserContactsResponseType, aboutMe: string, lookingForAJob: boolean, lookingForAJobDescription: string, fullName: string) => void;
 }
 
 export const ProfilePage = (props: PropsType) => {
@@ -33,6 +34,7 @@ export const ProfilePage = (props: PropsType) => {
                                 status={props.status}
                                 error={props.error}
                                 updateUserStatus={props.updateUserStatus}
+                                onSubmitHandler={props.onSubmitHandler}
             />
             <Posts posts={props.arrayPosts}/>
             <div>

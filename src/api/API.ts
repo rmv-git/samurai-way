@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
     GetUsersResponseType, Nullable,
-    ResponseType,
+    ResponseType, UserContactsResponseType,
     UserProfileResponseType,
 } from "../types/types";
 
@@ -64,4 +64,7 @@ export const API = {
     updateStatus(status: string) {
         return instance.put<ResponseType>(`profile/status`, {status})
     },
+    updateProfile(contacts: UserContactsResponseType, aboutMe: string, lookingForAJob: boolean, lookingForAJobDescription: string, fullName: string) {
+        return instance.put(`profile`, {contacts, aboutMe, lookingForAJob, lookingForAJobDescription, fullName})
+    }
 }

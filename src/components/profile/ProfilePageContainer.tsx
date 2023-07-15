@@ -8,6 +8,7 @@ import {
     getUserProfileThunk,
     getUserStatusThunk,
     newPostTextAC,
+    updateProfileDataThunk,
     updateUserStatusThunk
 } from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -52,7 +53,9 @@ export class ProfilePageClassComponent extends React.Component<ProfilePageContai
                 : <ProfilePage {...this.props}
                                addPost={this.addPost}
                                error={this.props.error}
-                               updateUserStatus={this.updateStatus}/>
+                               updateUserStatus={this.updateStatus}
+                               onSubmitHandler={this.props.updateProfileDataThunk}
+                />
         )
     }
 }
@@ -81,6 +84,7 @@ export const ConnectComponent = connect(mapStateToProps, {
     getUserProfileThunk,
     getUserStatusThunk,
     updateUserStatusThunk,
+    updateProfileDataThunk,
 });
 
 type PathParamType = {
