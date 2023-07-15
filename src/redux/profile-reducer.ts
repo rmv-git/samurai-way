@@ -16,6 +16,7 @@ const initialState: InitialStateType = {
         {id: 3, text: 'Lorem ipsum dolor sit amet.', likesCount: 99},
     ],
     profile: {
+        aboutMe: '',
         userId: null,
         lookingForAJob: false,
         lookingForAJobDescription: '',

@@ -41,16 +41,17 @@ export type GetUsersResponseType = {
     error: string | null,
 }
 export type UserContactsResponseType = {
-    github: Nullable<string>;
-    vk: Nullable<string>;
-    facebook: Nullable<string>;
-    instagram: Nullable<string>;
-    twitter: Nullable<string>;
-    website: Nullable<string>;
-    youtube: Nullable<string>;
-    mainLink: Nullable<string>;
+    github?: string;
+    vk?: string;
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    website?: string;
+    youtube?: string;
+    mainLink?: string;
 }
 export type UserProfileResponseType = {
+    aboutMe: Nullable<string>;
     userId: Nullable<number>;
     lookingForAJob: boolean;
     lookingForAJobDescription: Nullable<string>;

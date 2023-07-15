@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import robot from './../../../assets/images/robot.png';
 import {UserProfileResponseType} from "../../../types/types";
 import {ProfileStatusWithHooks} from "./status/ProfileStatusWithHooks";
 import {ProfileContactsForm} from "./ProfileContactsForm";
+import {ProfileDataEditForm} from "../ProfileDataEditForm";
 
 type PropsType = {
     profile: UserProfileResponseType;
@@ -11,6 +12,9 @@ type PropsType = {
     error: string[];
 }
 export const ProfileDescription = (props: PropsType) => {
+
+    const [editMode, setEditMode] = useState<boolean>(false);
+
     return (
         <div>
             <ProfileStatusWithHooks status={props.status}
@@ -30,10 +34,14 @@ export const ProfileDescription = (props: PropsType) => {
                     <b>LookingForAJob: </b>{JSON.stringify(props.profile.lookingForAJob)}
                 </div>
                 <div>
-                    <b>My professional skills: </b>{props.profile.lookingForAJobDescription}
+                    <b>LookingForAJobDescription: </b>{props.profile.lookingForAJobDescription}
                 </div>
                 <div>
-                    <ProfileContactsForm profile={props.profile}/>
+                    {
+                        editMode
+                            ? <ProfileDataEditForm profile={props.profile}/>
+                            : <ProfileContactsForm profile={props.profile}/>
+                    }
                 </div>
             </div>
         </div>
